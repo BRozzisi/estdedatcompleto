@@ -66,7 +66,7 @@ public class Pila {
     public String toString() {
         String s = "";
         if (this.tope == null) {
-            s = "Pila vacía: []";
+            s = "[]";
         } else {
             Nodo aux = this.tope;
             s = "Tope --> [";

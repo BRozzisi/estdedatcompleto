@@ -2,7 +2,7 @@ package lineales.estaticas;
 public class Pila {
     private Object [] arreglo;
     private int tope;
-    private final int tamanio = 5;
+    private final int tamanio = 20;
     
     public Pila() {
         this.arreglo = new Object[tamanio]; 
