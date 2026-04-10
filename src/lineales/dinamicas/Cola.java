@@ -71,7 +71,7 @@ public class Cola {
     public String toString() {
         String s = "";
         if (this.frente == null) {
-            s = "La cola esta vacía.";
+            s = "[]";
         } else {
             Nodo aux = this.frente;
             s = "Frente - [";
@@ -79,7 +79,7 @@ public class Cola {
                 s += aux.getElemento().toString();
                 aux = aux.getEnlace();
                 if (aux != null) {
-                    s += ", ";
+                    s += ",";
                 }
             }
             s += "] - Final";

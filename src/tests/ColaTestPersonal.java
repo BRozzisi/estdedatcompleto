@@ -2,10 +2,16 @@ package tests;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import static org.junit.Assert.*;
-
 import org.junit.Test;
+import lineales.dinamicas.Cola;
 
-import lineales.estaticas.Cola;
+/* 
+*
+*
+* @author Bruno Rozzisi - FAI-5892
+*
+*/
+
 public class ColaTestPersonal {
 
     private static boolean isSubstring(String s, String rx){

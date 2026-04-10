@@ -81,18 +81,4 @@ public class Cola {
         }
         return s;
     }
-    
-    public String mostrarCola() {
-        String s = "[";
-        if (this.frente == this.fin) {
-            s = "Cola vacía";
-        } else {
-            for (int i=0; i<this.tamanio; i++) {
-                s += this.arreglo[i].toString() + ", ";
-            }
-            s = s.trim();
-            s += "] Frente= " + this.frente + " Fin= " + this.fin;
-        }
-        return s;
-    }
 }
