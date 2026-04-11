@@ -52,41 +52,43 @@ public class Pila {
         return this.tope == -1;
     }
     
-    // Pone todos los nulos 
+    // Resetea la pila a un estado vacío.
     public void vaciar() {
-        if (!this.esVacia()) {
+        if (!this.esVacia()) {               // Revisa que la pila no esté vacía.
             int i;
-            for (i=0; i<this.TAMANIO; i++) {
+            for (i=0; i<this.TAMANIO; i++) { // Recorre toda la pila y le pone nulo a los valores.
                 this.arreglo[i] = null;
             }
             this.tope = -1;
         }
     }
     
+    // Devuelve un clon de la pila.
     @Override
     public Pila clone() {
         Pila pilaClon = new Pila();
-        int i;
-        for (i=0; i<this.TAMANIO; i++) {
-            pilaClon.arreglo[i] = this.arreglo[i];
+        if (!this.esVacia()) { // Copia el arreglo y el tope solo si la pila no está vacía.
+            pilaClon.arreglo = this.arreglo.clone();
+            pilaClon.tope = this.tope;
         }
-        pilaClon.tope = this.tope;
         return pilaClon;
     }
     
+    // Devuelve una cadena con todos los elementos actuales de la pila, desde el tope hasta el fondo.
+    // MÉTODO CON MOTIVOS DE DESARROLLO
     @Override
     public String toString() {
         String cadena = "";
         int i;
-        if(this.tope == -1) {
+        if(this.tope == -1) {                         // Si la pila está vacía devuelve "[]".
             cadena = "[]";
         } else {
             cadena = "Tope --> [";
-            for (i=this.tope; i>=0; i--) {
-                cadena += this.arreglo[i].toString();
-                if(i == 0) {
+            for (i=this.tope; i>=0; i--) {            // Si la pila no está vacía recorre los elementos del tope hasta [0] añadiendolos a una cadena.
+                cadena += this.arreglo[i].toString(); 
+                if(i == 0) {                          // Si es el ultimo elemento se le añade "]" para terminar la cadena.
                     cadena += "]";
-                } else {
+                } else {                              // Si no es el último elemento se le añade ", " para continuar la cadena.
                     cadena += ",";
                 }
             }
