@@ -1,30 +1,54 @@
 package lineales.estaticas;
+
+/**
+ * La clase Cola es una estructura de datos de tipo FIFO
+ * Esta es una implementación estática de Cola, donde la capacidad de guardado
+ * esta determinado por la variable TAMANIO.
+ * @param arreglo - array de Java utilizado de forma circular para guardar los
+ * objetos en la cola.
+ * @param frente - indice del arreglo que actúa como frente de la cola.
+ * @param fin - indice del arreglo que actúa como final de la cola.
+ * @param TAMANIO - entero final que define la cantidad de elementos que puede
+ * guardar la cola. En esta implementación la cantidad de objetos útiles que
+ * puede almacenar la cola se reduce a TAMANIO-1.
+ * @version 1.0
+ * @author Bruno Rozzisi || FAI-5892
+ */
 public class Cola {
     private Object[] arreglo;
     private int frente;
     private int fin;
     private final int TAMANIO = 8;
     
-    // Constructor vacío
+    /**
+     * Constructor vacío
+     */
     public Cola() {
         this.arreglo = new Object[this.TAMANIO];
         this.frente = 0;
         this.fin = 0;
     }
     
-    // Añadir un elemento mas al final de la cola. 
+    /**
+     * Si la cola tiene espacio, pone un elemento al fin de la misma.
+     * @param elem - Objeto a poner.
+     * @return Devuelve true si había espacio en la cola.
+     */
     public boolean poner(Object elem){
         boolean exito = true;
-        if (this.frente == (this.fin+1)%this.TAMANIO) { // Verifica si la cola está llena.
+        if (this.frente == (this.fin+1)%this.TAMANIO) {
             exito = false;
         } else {
             this.arreglo[this.fin%TAMANIO] = elem;
             this.fin = (this.fin+1)%this.TAMANIO;
         }
-        return exito; // Retorna true si la cola no estaba llena.
+        return exito;
     }
     
-    // Sacar el elemento del frente de la cola. 
+    /**
+     * Saca el elemento en el frente de la cola.
+     * @return Devuelve true si la cola tenía algún elemento para sacar.
+     */
     public boolean sacar() {
         boolean exito = true;
         if (this.esVacia()) { // Verifica si la cola está vacía.
@@ -36,17 +60,24 @@ public class Cola {
         return exito; // Retorna true si la cola tenía algun objeto para quitar.
     }
     
-    // Devuelve true si la cola esta vacía (frente == fin).
+    /**
+     * @return Devuelve true si la cola no tiene elementos.
+     */
     public boolean esVacia() {
         return this.fin == this.frente;
     }
     
-    // Retorna el objeto en el frente de la cola.
+    /**
+     * @return Devuelve el objeto en el frente.
+     */
     public Object obtenerFrente() {
         return this.arreglo[this.frente];
     }
     
-    // Resetea todos los valores de la cola.
+    /**
+     * Resetea todos los valores de la cola a nulos. Resetea frente y fin al
+     * indice 0.
+     */
     public void vaciar() {
         int i = this.frente;
         while (i>this.fin) { // Recorre los elementos del arreglo únicamente desde el frente hasta el fin.
@@ -57,7 +88,10 @@ public class Cola {
         this.fin = 0;
     }
     
-    // Devuelve una copia de la cola.
+    /**
+     * Si la cola no esta vacía, se crea un clon de la misma.
+     * @return Devuelve la copia creada.
+     */
     @Override
     public Cola clone() {
         Cola cClon = new Cola();
@@ -71,18 +105,21 @@ public class Cola {
         return cClon;
     }
     
-    // Imprime todos los objetos de la cola, del frente al final. METODO CON MOTIVOS DE DESARROLLO.
+    /**
+     * @return Devuelve una representación textual de la cola. Si la cola está
+     * vacía devuelve "[]".
+     */
     @Override
     public String toString() {
         String s = "Frente [";
         int i = this.frente;
-        if (this.esVacia()) { // Verifica si la cola está vacía
+        if (this.esVacia()) {
             s = "[]";
         } else {
-            do { // Añade las posiciones del arreglo a una cadena hasta que i sea igual que fin
+            do {
                 s += this.arreglo[i].toString();
                 i = (i+1)%this.TAMANIO;
-                if (i != this.fin) { // Añade una coma en caso de que no sea la ultima posicion del arreglo
+                if (i != this.fin) {
                     s += ",";
                 }
             } while (i != this.fin);

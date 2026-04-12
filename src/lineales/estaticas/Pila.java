@@ -2,8 +2,15 @@ package lineales.estaticas;
 
 /**
  * La clase Pila es una estructura de datos de tipo FILO
- * Esta es una implementación estática de pila,
+ * Esta es una implementación estática de pila, donde el tamaño de la misma esta
+ * fijada por la variable TAMANIO
  * 
+ * @param arreglo - Array de Java utilizado como estructura para almacenar los
+ * datos de la pila.
+ * @param tope - Entero que determina la posición en arreglo que actúa como el
+ * tope de la pila.
+ * @param TAMANIO - Entero que determina la cantidad de objetos que puede
+ * almacenar la pila.
  * @author Bruno Rozzisi || FAI-5892
  */
 
@@ -101,7 +108,6 @@ public class Pila {
     /**
      * @return Devuelve una cadena con todos los elementos de la pila. Si la
      * pila está vacía devuelve "[]".
-     * @hidden
      */
     @Override
     public String toString() {
