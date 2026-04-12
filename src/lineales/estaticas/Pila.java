@@ -11,6 +11,7 @@ package lineales.estaticas;
  * tope de la pila.
  * @param TAMANIO - Entero que determina la cantidad de objetos que puede
  * almacenar la pila.
+ * @version 1.0
  * @author Bruno Rozzisi || FAI-5892
  */
 

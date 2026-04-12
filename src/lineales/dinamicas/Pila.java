@@ -1,14 +1,30 @@
 package lineales.dinamicas;
 
+/**
+ * La clase Pila es una estructura de datos dinámica que permite almacenar
+ * Objects uno encima del otro, pudiendo acceder únicamente al último objeto
+ * añadido.
+ * @param tope - {@link Nodo} que representa el elemento en el tope.
+ * @version 1.0
+ * @author Bruno Rozzisi || FAI-5892
+ */
 public class Pila {
     private Nodo tope;
     
-    // Constructor vacío.
+    /**
+     * Constructor vacío
+     */
     public Pila() {
         this.tope = null;
     }
     
-    // Apila un elemento. Devuelve true.
+    /**
+     * Coloca un {@link Nodo} en el tope de la pila, convirtiendo a este en el
+     * nuevo tope.
+     * @param elem - {@link Object} que será utilizado como elemento para el
+     * {@link Nodo} del tope.
+     * @return true.
+     */
     public boolean apilar(Object elem) {
         Nodo nuevo = new Nodo(elem, this.tope);
         this.tope = nuevo;
@@ -16,20 +32,26 @@ public class Pila {
         return true;
     }
     
-    // Desapila un elemento. Devuelve true si la pila no estaba vacía.
+    /**
+     * Saca de la pila el {@link Nodo} que está en el tope.
+     * @return Devuelve true si la pila no está vacía.
+     */
     public boolean desapilar() {
         boolean aux = false;
-        if (this.tope != null) {              // Desapila si la pila tiene algún elemento.
+        if (this.tope != null) {
             this.tope = this.tope.getEnlace();
             aux =  true;
         }
         return aux;
     }
     
-    // Devuelve el objeto en el tope.
+    /**
+     * @return Devuelve el {@link Object} en el {@link Nodo} del tope. Si la pila está
+     * vacía devuelve nulo.
+     */
     public Object obtenerTope() {
         Object objeto;
-        if (this.tope == null) {              // Si la pila está vacía devuelve nulo.
+        if (this.tope == null) {
             objeto = null;
         } else {
             objeto = this.tope.getElemento();
@@ -37,25 +59,31 @@ public class Pila {
         return objeto;
     }
     
-    // Devuelve true si la pila está vacía.
+    /**
+     * {@return true si la pila no tiene ningún elemento.}
+     */
     public boolean esVacia() {
         return this.tope == null;
     }
     
-    // Resetea la pila.
+    /**
+     * Resetea todos los valores de la pila.
+     */
     public void vaciar() {
         this.tope = null;
     }
     
-    // Devuelve un clon de la pila.
+    /**
+     * {@return a clone}
+     */
     @Override
     public Pila clone() {
         Pila pCopia = new Pila();
-        if (this.tope != null) {                                               // Si la pila no está vacía, copia todos los nodos y sus enlaces.
+        if (this.tope != null) {
             Nodo nodoCopia = new Nodo(this.tope.getElemento(), null);
             Nodo aux2 = nodoCopia;
             Nodo aux = this.tope;
-            while (aux.getEnlace() != null){                                   // Mientras aux tenga un enlace existente, avanza y clona su elemento en nodoCopia.
+            while (aux.getEnlace() != null){
                 aux = aux.getEnlace();
                 nodoCopia.setEnlace(new Nodo(aux.getElemento(), null));
                 nodoCopia = nodoCopia.getEnlace();
@@ -65,19 +93,16 @@ public class Pila {
         return pCopia;
     }
 
-    /*
-    *
-    *
-    *     MÉTODOS CON MOTIVOS DE DESARROLLO.
-    *
-    */
-    // Devuelve una cadena con todos los elementos de la pila.
+    /**
+     * {@return una representación textual de la pila en forma de 
+     * {@link String}. Si la pila está vacía devuelve "[]".}
+     */
     @Override
     public String toString() {
         String s = "";
-        if (this.tope == null) {                  // Si la pila está vacía devuelve "[]".
+        if (this.tope == null) {
             s = "[]";
-        } else {                                  // Si la pila no está vacía añade los elementos del tope al fondo.
+        } else {
             Nodo aux = this.tope;
             s = "Tope --> [";
 
@@ -91,11 +116,6 @@ public class Pila {
             s += "]";
         }
         return s;
-    }
-
-    // Devuelve el Nodo en el tope.
-    public Nodo getTope() {
-        return this.tope;
     }
 }
 
