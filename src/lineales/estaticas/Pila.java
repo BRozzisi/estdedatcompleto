@@ -38,7 +38,7 @@ public class Pila {
         boolean hayEspacio = true;
         if (this.tope+1<this.TAMANIO) {
             this.tope++;
-            this.arreglo[tope] = elemento;
+            this.arreglo[this.tope] = elemento;
         } else {
             hayEspacio = false;
         }

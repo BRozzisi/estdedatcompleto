@@ -1,11 +1,6 @@
 package lineales.dinamicas;
 
 public class Lista {
-    // localizar(Object elem) : int
-    // esVacia() : boolean
-    // vaciar() : void
-    // toString() : String
-    // clone() : Lista
     private Nodo cabecera;
 
     public Lista() {
@@ -96,5 +91,51 @@ public class Lista {
             }
         }
         return pos;
+    }
+
+    public boolean esVacia() {
+        return this.cabecera == null;
+    }
+
+    public void vaciar() {
+        this.cabecera = null;
+    }
+
+    @Override
+    public Lista clone() {
+        Lista lClone = new Lista();
+        if (!this.esVacia()) {
+            Nodo nodoCopia = new Nodo(this.cabecera.getElemento(), null);
+            lClone.cabecera = nodoCopia;
+            Nodo nodoAux = this.cabecera.getEnlace();;
+            while (nodoAux != null) {
+                nodoCopia.setEnlace(new Nodo(nodoAux.getElemento(), null));
+                nodoCopia = nodoCopia.getEnlace();
+                nodoAux = nodoAux.getEnlace();
+            }
+            
+        }
+        return lClone;
+    }
+
+
+    @Override
+    public String toString() {
+        String s = "";
+        if(this.esVacia()) {
+            s = "[]";
+        } else {
+            s = "[";
+            Nodo aux = this.cabecera;
+            while (aux != null) {
+                s += aux.getElemento().toString();
+                aux = aux.getEnlace();
+                if (aux != null) {
+                    s += ",";
+                }
+            }
+            s += "]";
+        }
+        return s;
     }
 }
