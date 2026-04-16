@@ -51,13 +51,13 @@ public class Cola {
      */
     public boolean sacar() {
         boolean exito = true;
-        if (this.esVacia()) { // Verifica si la cola está vacía.
+        if (this.esVacia()) {
             exito = false;
         } else {
             this.arreglo[this.frente] = null;
             this.frente = (this.frente+1) % this.TAMANIO;
         }
-        return exito; // Retorna true si la cola tenía algun objeto para quitar.
+        return exito;
     }
     
     /**
@@ -79,13 +79,14 @@ public class Cola {
      * indice 0.
      */
     public void vaciar() {
-        int i = this.frente;
-        while (i>this.fin) { // Recorre los elementos del arreglo únicamente desde el frente hasta el fin.
-            this.arreglo[i] = null;
-            i = (i+1)%this.TAMANIO;
+        if (!this.esVacia()) {
+            int i = this.frente;
+            while (i>this.fin) {
+                this.arreglo[i] = null;
+                i = (i+1)%TAMANIO;
+            }
+            this.frente = this.fin = 0;
         }
-        this.frente = 0;
-        this.fin = 0;
     }
     
     /**
