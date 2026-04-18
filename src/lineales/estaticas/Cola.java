@@ -96,8 +96,7 @@ public class Cola {
     @Override
     public Cola clone() {
         Cola cClon = new Cola();
-        if(!this.esVacia()) { // Verifica si la cola no está vacía
-            int i;
+        if(!this.esVacia()) {
             cClon.arreglo = this.arreglo.clone();
             cClon.frente = this.frente;
             cClon.fin = this.fin;

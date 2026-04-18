@@ -3,10 +3,6 @@ import lineales.dinamicas.Lista;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ListaTestPersonal {
 
@@ -59,7 +55,7 @@ public class ListaTestPersonal {
     @Test
     public void testInsertarPosicionInvalida() {
         Lista l = new Lista();
-        boolean ins = l.insertar(1, 1);
+        l.insertar(1, 1);
         boolean ins2 = l.insertar(2, 3);
         boolean ev = l.esVacia();
         String ts = l.toString();
