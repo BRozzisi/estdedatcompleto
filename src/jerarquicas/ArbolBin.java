@@ -3,7 +3,6 @@ package jerarquicas;
 import lineales.dinamicas.Lista;
 
 /**
- * insertarPorPosicion
  * esVacio
  * padre
  * altura
@@ -117,5 +116,29 @@ public class ArbolBin {
             listarPreordenAux(nodo.getIzquierdo(), lis);
             listarPreordenAux(nodo.getDerecho(), lis);
         }
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        Lista lisPreorden = new Lista();
+        listarPreordenAux(this.raiz, lisPreorden);
+        Object nodoAux;
+        if (lisPreorden.longitud() == 0) {
+            s = "[Arbol Binario vacío.]";
+        } else {
+            int i = lisPreorden.longitud();
+            while (i > 0) {
+                nodoAux = lisPreorden.recuperar(1);
+                lisPreorden.eliminar(1);
+                i--;
+                s += nodoAux.toString();
+                if (i != 0) {
+                    s += "; ";
+                }
+            }
+        }
+
+        return s;
     }
 }
