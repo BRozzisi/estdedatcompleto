@@ -1,6 +1,7 @@
 package jerarquicas;
 
 import lineales.dinamicas.Lista;
+import lineales.dinamicas.Cola;
 
 /**
  * esVacio
@@ -119,24 +120,12 @@ public class ArbolBin {
     }
 
     @Override
-    public String toString() {
+    public String toString() { // PLANTEAR A LA PROFE EL METODO COLA PARA HACER EL TOSTRING
         String s = "";
-        Lista lisPreorden = new Lista();
-        listarPreordenAux(this.raiz, lisPreorden);
-        Object nodoAux;
-        if (lisPreorden.longitud() == 0) {
+        if (this.raiz == null) {
             s = "[Arbol Binario vacío.]";
         } else {
-            int i = lisPreorden.longitud();
-            while (i > 0) {
-                nodoAux = lisPreorden.recuperar(1);
-                lisPreorden.eliminar(1);
-                i--;
-                s += nodoAux.toString();
-                if (i != 0) {
-                    s += "; ";
-                }
-            }
+            
         }
 
         return s;
