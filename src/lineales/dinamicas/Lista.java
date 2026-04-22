@@ -183,10 +183,32 @@ public class Lista {
     }
 
     // METODOS PARA EJERCICIOS DEL SIMULACRO DEL PRIMER PARCIAL
+    // No podemos usar insertar? clone? longitud? que tan restrictivo es?
     public Lista obtenerMultiplos(int num) {
         Lista l = new Lista();
-        if (this.longitud() >= num) {
-            
+        if ((this.longitud() >= num) && (num > 0)) {
+            int i, j, k;
+            i = j = k = 1;
+            Nodo nodoAux = this.cabecera;
+            while (i <= this.longitud()) {
+                if ((i % num) == 0) {
+                    if (j == 1) {
+                        l.cabecera = new Nodo(nodoAux.getElemento(), null);
+                    } else {
+                        Nodo nodoAux2 = l.cabecera;
+                        while (k<(j-1)) {
+                            nodoAux2 = nodoAux2.getEnlace();
+                            k++;
+                        }
+                        k = 1;
+                        Nodo nuevo = new Nodo(nodoAux.getElemento(), nodoAux2.getEnlace());
+                        nodoAux2.setEnlace(nuevo);
+                    }
+                    j++;
+                }
+                i++;
+                nodoAux = nodoAux.getEnlace();
+            }
         }
 
         return l;
