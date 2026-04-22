@@ -181,4 +181,14 @@ public class Lista {
         }
         return s;
     }
+
+    // METODOS PARA EJERCICIOS DEL SIMULACRO DEL PRIMER PARCIAL
+    public Lista obtenerMultiplos(int num) {
+        Lista l = new Lista();
+        if (this.longitud() >= num) {
+            
+        }
+
+        return l;
+    }
 }
