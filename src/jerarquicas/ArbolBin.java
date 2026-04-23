@@ -4,7 +4,6 @@ import lineales.dinamicas.Lista;
 import lineales.dinamicas.Cola;
 
 /**
- * esVacio
  * padre
  * altura
  * nivel
@@ -67,12 +66,16 @@ public class ArbolBin {
     public boolean insertarPorPosicion(Object elemNuevo, int posPadre, boolean posHijo) {
         boolean exito = true;
         if (this.raiz == null) {
-            this.raiz = new NodoArbol(elemNuevo, null, null);
+            if (posPadre == 0) {
+                this.raiz = new NodoArbol(elemNuevo, null, null);
+            } else {
+                exito = false;
+            }
         } else {
-            Lista lis = this.listarPreorden();
             NodoArbol nPadre;
-            if (posPadre>0 && posPadre<=lis.longitud()) {
-                nPadre = buscarPosPreorden(this.raiz, 1, posPadre);
+            int[] aux = {1};
+            nPadre = buscarPosPreorden(this.raiz, posPadre, aux);
+            if (nPadre != null) {
                 if (posHijo && nPadre.getIzquierdo()==null) {
                     nPadre.setIzquierdo(new NodoArbol(elemNuevo, null, null));
                 } else if (!posHijo && nPadre.getDerecho()==null) {
@@ -87,18 +90,20 @@ public class ArbolBin {
         return exito;
     }
 
-    private NodoArbol buscarPosPreorden(NodoArbol nodo, int i, int posPadre) {
+    private NodoArbol buscarPosPreorden(NodoArbol nodo, int posPadre, int[] aux) {
         NodoArbol nodoRetorno = null;
-        if (i == posPadre) {
-            nodoRetorno = nodo;
-        } 
-        if (i < posPadre) {
-            if (nodo.getIzquierdo() != null) {
-                nodoRetorno = buscarPosPreorden(nodo.getIzquierdo(), i+1, posPadre);
-            }
-            if (nodoRetorno == null) {
-                if (nodo.getDerecho() != null) {
-                    nodoRetorno = buscarPosPreorden(nodo.getDerecho(), i+1, posPadre);
+        int i = aux[0];
+        if (posPadre > 0) {
+            if (i == posPadre) {
+                nodoRetorno = nodo;
+            } else {
+                if (nodo.getIzquierdo() != null) {
+                    aux[0] = aux[0] + 1;
+                    nodoRetorno = buscarPosPreorden(nodo.getIzquierdo(), posPadre, aux);
+                }
+                if ((nodoRetorno == null) && (nodo.getDerecho() != null)) {
+                    aux[0] = aux[0] + 1;
+                    nodoRetorno = buscarPosPreorden(nodo.getDerecho(), posPadre, aux);
                 }
             }
         }
@@ -119,13 +124,63 @@ public class ArbolBin {
         }
     }
 
+    public boolean esVacio() {
+        return this.raiz == null;
+    }
+
+    public NodoArbol padre(Object elemento) {
+        NodoArbol nActual = this.raiz;
+        NodoArbol nRetorno = null;
+        while (nRetorno != null) {
+            if (nActual.getIzquierdo() != null) {
+                if(nActual.getIzquierdo().getElem() == elemento) {
+                    nRetorno = nActual;
+                }
+            }
+            if (nActual.getDerecho() != null) {
+                if (nActual.getDerecho().getElem() == elemento) {
+                    
+                }
+            }
+        }
+
+        return nRetorno;
+    }
+
     @Override
-    public String toString() { // PLANTEAR A LA PROFE EL METODO COLA PARA HACER EL TOSTRING
+    public String toString() {
         String s = "";
         if (this.raiz == null) {
             s = "[Arbol Binario vacío.]";
         } else {
-            
+            s += "Raiz: " + this.raiz.getElem() + "\n";
+            NodoArbol nodoAux = this.raiz;
+            s += toStringAux(this.raiz);
+        }
+
+        return s;
+    }
+
+    private String toStringAux(NodoArbol nodo) {
+        String s = "";
+        boolean tieneIzq = nodo.getIzquierdo() != null;
+        boolean tieneDer = nodo.getDerecho() != null;
+        s += nodo.getElem() + ": ";
+        if (tieneIzq) {
+            s += "HI: " + nodo.getIzquierdo().getElem() + " // ";
+        } else {
+            s += "HI: null // ";
+        }
+        if (tieneDer) {
+            s += "HD: " + nodo.getDerecho().getElem() + "\n";
+        } else {
+            s += "HD: null \n";
+        }
+        if (tieneIzq) {
+            s += toStringAux(nodo.getIzquierdo());
+        }
+        if (tieneDer) {
+            s += toStringAux(nodo.getDerecho());
         }
 
         return s;
