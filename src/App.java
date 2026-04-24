@@ -1,16 +1,50 @@
 import jerarquicas.ArbolBin;
+import jerarquicas.NodoArbol;
 import lineales.dinamicas.Lista;
 
 public class App {
+    public static void cargarArbolCompleto4Niveles(ArbolBin arbol) {
+        arbol.insertar("A", null, true);
+
+        arbol.insertar("B", "A", true);
+        arbol.insertar("C", "A", false);
+
+        arbol.insertar("D", "B", true);
+        arbol.insertar("E", "B",false);
+        arbol.insertar("F", "C", true);
+        arbol.insertar("G", "C", false);
+
+        arbol.insertar("H", "D", true);
+        arbol.insertar("I", "D",false);
+        arbol.insertar("J", "E", true);
+        arbol.insertar("K", "E", false);
+        arbol.insertar("L", "F", true);
+        arbol.insertar("M", "F",false);
+        arbol.insertar("N", "G", true);
+        arbol.insertar("O", "G", false);
+    }
+    public static void cargarArbolSoloRaiz(ArbolBin arbol) {
+        arbol.insertar("A", null, true);
+    }
+    public static void cargarArbolAsimetrico(ArbolBin arbol) {
+        arbol.insertar("A", null, true);
+        arbol.insertar("B", "A", true);
+        arbol.insertar("D", "B", true);
+        arbol.insertar("C", "A", false);
+        arbol.insertar("E", "C", true);
+        arbol.insertar("F", "C", false);
+        arbol.insertar("G", "E", true);
+        arbol.insertar("H", "E", false);
+    }
     public static void main(String[] args) throws Exception {
-        Lista lista = new Lista();
-        for (int i = 20; i>0; i--) {
-            lista.insertar(i, 1);
-        }
+        ArbolBin arbol = new ArbolBin();
 
-        Lista listaNueva = lista.obtenerMultiplos(5);
+        // cargarArbolCompleto4Niveles(arbol);
+        // cargarArbolSoloRaiz(arbol);
+        // cargarArbolAsimetrico(arbol);
 
-        System.out.println(lista.toString());
-        System.out.println(listaNueva.toString());
+        Lista listaPorNiveles = arbol.listarPorNiveles();
+
+        System.out.println(listaPorNiveles.toString());
     }
 }
