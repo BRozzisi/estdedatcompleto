@@ -3,17 +3,14 @@ import lineales.dinamicas.Lista;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        ArbolBin arbol = new ArbolBin();
+        Lista lista = new Lista();
+        for (int i = 20; i>0; i--) {
+            lista.insertar(i, 1);
+        }
 
-        boolean algo = arbol.insertar("A", 1, true);
-        arbol.insertarPorPosicion("B", 1, true);
-        arbol.insertarPorPosicion("C", 1, false);
-        arbol.insertarPorPosicion("E", 2, false);
-        arbol.insertarPorPosicion("F", 4, true);
-        arbol.insertarPorPosicion("G", 4, false);
-        arbol.insertarPorPosicion("H", 5, false);
+        Lista listaNueva = lista.obtenerMultiplos(5);
 
-
-        System.out.println(arbol.toString());
+        System.out.println(lista.toString());
+        System.out.println(listaNueva.toString());
     }
 }
