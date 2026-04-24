@@ -1,10 +1,8 @@
 package jerarquicas;
 
 import lineales.dinamicas.Lista;
-import lineales.dinamicas.Cola;
 
 /**
- * padre
  * altura
  * nivel
  * vaciar
@@ -128,23 +126,54 @@ public class ArbolBin {
         return this.raiz == null;
     }
 
-    public NodoArbol padre(Object elemento) {
-        NodoArbol nActual = this.raiz;
-        NodoArbol nRetorno = null;
-        while (nRetorno != null) {
-            if (nActual.getIzquierdo() != null) {
-                if(nActual.getIzquierdo().getElem() == elemento) {
-                    nRetorno = nActual;
-                }
-            }
-            if (nActual.getDerecho() != null) {
-                if (nActual.getDerecho().getElem() == elemento) {
+    // public NodoArbol padre(Object elemento) {
+    //     NodoArbol nActual = this.raiz;
+    //     NodoArbol nRetorno = null;
+    //     while (nRetorno != null) {
+    //         if (nActual.getIzquierdo() != null) {
+    //             if(nActual.getIzquierdo().getElem() == elemento) {
+    //                 nRetorno = nActual;
+    //             }
+    //         }
+    //         if (nActual.getDerecho() != null) {
+    //             if (nActual.getDerecho().getElem() == elemento) {
                     
-                }
-            }
+    //             }
+    //         }
+    //     }
+
+    //     return nRetorno;
+    // }
+
+    public int altura() {
+        int altura;
+        if (this.raiz == null) {
+            altura = -1;
+        } else if ((this.raiz.getIzquierdo() == null) && (this.raiz.getDerecho() == null)) {
+            altura = 0;
+        } else {
+            altura = 1;
         }
 
-        return nRetorno;
+        return altura;
+    }
+
+    private int alturaAux(NodoArbol nodo, int i) {
+        int j = i;
+        if (nodo.getIzquierdo() != null) {
+            i = alturaAux(nodo.getIzquierdo(), j+1);
+        }
+        
+        if (nodo.getDerecho() != null) {
+            i = alturaAux(nodo.getDerecho(), j+1);
+            
+        }
+        if (i > j) {
+            j = i;
+        }
+        
+
+        return j;
     }
 
     @Override
