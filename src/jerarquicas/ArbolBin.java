@@ -8,6 +8,8 @@ import lineales.dinamicas.Cola;
  * un {@link NodoArbol} inicial llamado
  * raíz, el cual tiene dos enlaces hacía otros nodos.
  * 
+ * @param raiz - {@link NodoArbol} para acceder al arbol.
+ * @version 1.00
  * @author @BRozzisi
  */
 

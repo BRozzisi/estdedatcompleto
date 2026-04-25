@@ -1,9 +1,15 @@
 package jerarquicas;
 
-
 /**
- * La clase NodoArbol es una estructura de datos auxiliar utilizada por {@link ArbolBin} en la cual cada NodoArbol
- * almacena un Object, y tiene dos punteros hacia sus "hijos" izquierdo y derecho.
+ * La clase NodoArbol es una estructura de datos auxiliar utilizada por
+ * {@link ArbolBin} en la cual cada NodoArbol
+ * almacena un elemento, junto con dos punteros hacia sus "hijos" izquierdo y
+ * derecho.
+ * 
+ * @param elem      - {@link Object} que se desea guardar en el nodo.
+ * @param izquierdo - {@link NodoArbol} que representa al Hijo Izquierdo
+ * @param derecho   - {@link NodoArbol} que representa al Hijo Derecho
+ * @version 1.00
  * @author @BRozzisi
  */
 public class NodoArbol {
@@ -13,9 +19,10 @@ public class NodoArbol {
 
     /**
      * Constructor predeterminado.
+     * 
      * @param elemento {@link Object} que queremos almacenar en el nodo
-     * @param hIzq {@link NodoArbol} que indica el Hijo Izquierdo (HI)
-     * @param hDer {@link NodoArbol} que indica el Hijo Derecho (HD)
+     * @param hIzq     {@link NodoArbol} que indica el Hijo Izquierdo (HI)
+     * @param hDer     {@link NodoArbol} que indica el Hijo Derecho (HD)
      */
     public NodoArbol(Object elemento, NodoArbol hIzq, NodoArbol hDer) {
         this.elem = elemento;
@@ -66,7 +73,8 @@ public class NodoArbol {
     }
 
     /**
-     * {@return una representación textual del nodo en {@link String}, mostrando su elemento, y los elementos de sus 
+     * {@return una representación textual del nodo en {@link String}, mostrando su
+     * elemento, y los elementos de sus
      * hijos}
      */
     @Override
@@ -79,7 +87,7 @@ public class NodoArbol {
             // Si no tiene HI, escribe n, que representa null.
             s += "(n, ";
         }
-        
+
         if (this.derecho != null) {
             // Si tiene HD, añade el elemento del HD a la cadena
             s += this.derecho.getElem().toString() + ")";

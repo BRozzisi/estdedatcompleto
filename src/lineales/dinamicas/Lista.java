@@ -1,9 +1,14 @@
 package lineales.dinamicas;
+
 /**
  * La clase Lista es una estructura de datos que almacena datos de forma similar
  * a un arreglo de Java, almacenando mediante {@link Nodo} un elemento junto
  * con el siguiente en la lista, siendo esta clase la encargada de gestionar
  * todas las posiciones necesarias.
+ * 
+ * @param cabecera - {@link Nodo} que representa el acceso al primer elemento de
+ *                 la lista.
+ * @version 1.00
  * @author Bruno Rozzisi - FAI 5892
  */
 public class Lista {
@@ -18,13 +23,14 @@ public class Lista {
 
     /**
      * Pone un elemento en la posición indicada
+     * 
      * @param elem elemento a guardar
-     * @param pos posicion en la que queremos guardar elem
+     * @param pos  posicion en la que queremos guardar elem
      * @return true si pos estaba dentro del rango válido para guardar
      */
     public boolean insertar(Object elem, int pos) {
         boolean exito = true;
-        if (pos<1 || pos>this.longitud() + 1) {
+        if (pos < 1 || pos > this.longitud() + 1) {
             exito = false;
         } else {
             if (pos == 1) {
@@ -32,7 +38,7 @@ public class Lista {
             } else {
                 Nodo aux = this.cabecera;
                 int i = 1;
-                while (i<(pos-1)) {
+                while (i < (pos - 1)) {
                     aux = aux.getEnlace();
                     i++;
                 }
@@ -60,12 +66,13 @@ public class Lista {
 
     /**
      * Elimina el elemento en la posición dada.
+     * 
      * @param pos posición que queremos eliminar.
-     * @return true si  la pos dada es válida.
+     * @return true si la pos dada es válida.
      */
     public boolean eliminar(int pos) {
         boolean exito = true;
-        if (pos<1 || pos>this.longitud()) {
+        if (pos < 1 || pos > this.longitud()) {
             exito = false;
         } else {
             if (pos == 1) {
@@ -73,7 +80,7 @@ public class Lista {
             } else {
                 Nodo aux = this.cabecera;
                 int i = 1;
-                while (i<(pos-1)) {
+                while (i < (pos - 1)) {
                     aux = aux.getEnlace();
                     i++;
                 }
@@ -85,16 +92,17 @@ public class Lista {
 
     /**
      * {@return el elemento en la posición dada}
+     * 
      * @param pos posición que queremos recuperar
      */
     public Object recuperar(int pos) {
         Object retorno;
-        if (pos<1 || pos>this.longitud()) {
+        if (pos < 1 || pos > this.longitud()) {
             retorno = null;
         } else {
             Nodo aux = this.cabecera;
             int i = 1;
-            while(i != pos) {
+            while (i != pos) {
                 aux = aux.getEnlace();
                 i++;
             }
@@ -106,6 +114,7 @@ public class Lista {
     /**
      * {@return la posición en la que aparece por primera vez el elemento dado
      * en la lista}
+     * 
      * @param elem elemento que estamos buscando
      */
     public int localizar(Object elem) {
@@ -114,8 +123,8 @@ public class Lista {
             pos = 0;
             boolean encontrado = false;
             Nodo aux = this.cabecera;
-            while((aux != null) && (!encontrado)) {
-                if(aux.getElemento()==elem) {
+            while ((aux != null) && (!encontrado)) {
+                if (aux.getElemento() == elem) {
                     encontrado = true;
                 }
                 aux = aux.getEnlace();
@@ -148,24 +157,26 @@ public class Lista {
         if (!this.esVacia()) {
             Nodo nodoCopia = new Nodo(this.cabecera.getElemento(), null);
             lClone.cabecera = nodoCopia;
-            Nodo nodoAux = this.cabecera.getEnlace();;
+            Nodo nodoAux = this.cabecera.getEnlace();
+            ;
             while (nodoAux != null) {
                 nodoCopia.setEnlace(new Nodo(nodoAux.getElemento(), null));
                 nodoCopia = nodoCopia.getEnlace();
                 nodoAux = nodoAux.getEnlace();
             }
-            
+
         }
         return lClone;
     }
 
-    /**s
+    /**
+     * s
      * {@return una representación textual de la lista}
      */
     @Override
     public String toString() {
         String s = "";
-        if(this.esVacia()) {
+        if (this.esVacia()) {
             s = "[]";
         } else {
             s = "[";

@@ -3,10 +3,12 @@ package lineales.dinamicas;
 /**
  * La clase Cola es una estructura de datos dinámica que permite almacenar
  * objetos de forma FIFO (First In, First Out).
+ * 
  * @param frente - {@link Nodo} que almacena el objeto en el frente y un puntero
- * al segundo elemento de la cola.
- * @param fin - {@link Nodo} que almacena el último objeto almacenado en la cola.
- * @version 1.0
+ *               al segundo elemento de la cola.
+ * @param fin    - {@link Nodo} que almacena el último objeto almacenado en la
+ *               cola.
+ * @version 1.00
  * @author Bruno Rozzisi || FAI-5892.
  */
 public class Cola {
@@ -23,14 +25,15 @@ public class Cola {
 
     /**
      * Pone un {@link Object} al final de la cola.
+     * 
      * @param elem {@link Object} a poner.
      * @return Devuelve true.
      */
     public boolean poner(Object elem) {
         Nodo nuevo = new Nodo(elem, null);
-        if (this.frente == null) {                // Si la cola está vacía coloca el elem en el frente.
+        if (this.frente == null) { // Si la cola está vacía coloca el elem en el frente.
             this.frente = nuevo;
-        }  else {                                 // Si no está vacía coloca el elem como enlace del fin.
+        } else { // Si no está vacía coloca el elem como enlace del fin.
             this.fin.setEnlace(nuevo);
         }
         this.fin = nuevo;
@@ -39,6 +42,7 @@ public class Cola {
 
     /**
      * Si la cola no está vacía, saca el objeto en el frente de la cola.
+     * 
      * @return Devuelve true si la cola no estaba vacía.
      */
     public boolean sacar() {
@@ -82,6 +86,7 @@ public class Cola {
 
     /**
      * Si la cola no está vacía, copia todos los Nodos a un clon.
+     * 
      * @return Devuelve el clon creado.
      */
     @Override
@@ -104,6 +109,7 @@ public class Cola {
 
     /**
      * Representa los valores almacenados en la cola en forma de {@link String}.
+     * 
      * @return Devuelve la cadena creada. Si la pila está vacía devuelve "[]".
      */
     @Override
@@ -126,4 +132,3 @@ public class Cola {
         return s;
     }
 }
-

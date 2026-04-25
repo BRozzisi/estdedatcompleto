@@ -1,4 +1,5 @@
 package tests;
+
 import lineales.dinamicas.Lista;
 import org.junit.Test;
 
@@ -6,9 +7,10 @@ import static org.junit.Assert.*;
 
 public class ListaTestPersonal {
 
-    //*************************************************************************************
-    //  TESTS DE CONSTRUCCIÓN.
-    //************************************************************************************* */
+    // *************************************************************************************
+    // TESTS DE CONSTRUCCIÓN.
+    // *************************************************************************************
+    // */
     @Test
     public void testCrearLista() {
         Lista l = new Lista();
@@ -21,9 +23,11 @@ public class ListaTestPersonal {
         assertEquals(t, null);
     }
 
-    //************************************************************************************ */
+    // ************************************************************************************
+    // */
     // TESTS DE INSERCION
-    //************************************************************************************ */
+    // ************************************************************************************
+    // */
     @Test
     public void testInsertarListaVacia() {
         Lista l = new Lista();
@@ -117,7 +121,7 @@ public class ListaTestPersonal {
 
     /************************************************************************ */
     // TESTS DE LONGITUD
-    //*********************************************************************** */
+    // *********************************************************************** */
     @Test
     public void testLongitudVacia() {
         Lista l = new Lista();
@@ -169,7 +173,7 @@ public class ListaTestPersonal {
     @Test
     public void testEliminarCabeceraSinEnlace() {
         Lista l = new Lista();
-        l.insertar(1,1);
+        l.insertar(1, 1);
         boolean elim = l.eliminar(1);
         boolean ev = l.esVacia();
         String ts = l.toString();
@@ -184,8 +188,8 @@ public class ListaTestPersonal {
     @Test
     public void testEliminarCabeceraConEnlace() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
+        l.insertar(1, 1);
+        l.insertar(2, 2);
         boolean elim = l.eliminar(1);
         boolean ev = l.esVacia();
         String ts = l.toString();
@@ -200,9 +204,9 @@ public class ListaTestPersonal {
     @Test
     public void testEliminarElementoMedio() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
-        l.insertar(3,3);
+        l.insertar(1, 1);
+        l.insertar(2, 2);
+        l.insertar(3, 3);
         boolean elim = l.eliminar(2);
         boolean ev = l.esVacia();
         String ts = l.toString();
@@ -234,9 +238,9 @@ public class ListaTestPersonal {
     @Test
     public void testLocalizarElementoInicio() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
-        l.insertar(3,3);
+        l.insertar(1, 1);
+        l.insertar(2, 2);
+        l.insertar(3, 3);
         int pos = l.localizar(1);
         boolean ev = l.esVacia();
         String ts = l.toString();
@@ -251,9 +255,9 @@ public class ListaTestPersonal {
     @Test
     public void testLocalizarElementoMedio() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
-        l.insertar(3,3);
+        l.insertar(1, 1);
+        l.insertar(2, 2);
+        l.insertar(3, 3);
         int pos = l.localizar(2);
         boolean ev = l.esVacia();
         String ts = l.toString();
@@ -268,9 +272,9 @@ public class ListaTestPersonal {
     @Test
     public void testLocalizarElementoFinal() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
-        l.insertar(3,3);
+        l.insertar(1, 1);
+        l.insertar(2, 2);
+        l.insertar(3, 3);
         int pos = l.localizar(3);
         boolean ev = l.esVacia();
         String ts = l.toString();
@@ -285,10 +289,10 @@ public class ListaTestPersonal {
     @Test
     public void testLocalizarElementoDuplicado() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
-        l.insertar(3,3);
-        l.insertar(2,4);
+        l.insertar(1, 1);
+        l.insertar(2, 2);
+        l.insertar(3, 3);
+        l.insertar(2, 4);
         int pos = l.localizar(2);
         boolean ev = l.esVacia();
         String ts = l.toString();
@@ -319,8 +323,8 @@ public class ListaTestPersonal {
     @Test
     public void testVaciarConElementos() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
+        l.insertar(1, 1);
+        l.insertar(2, 2);
         l.vaciar();
         boolean ev = l.esVacia();
         String ts = l.toString();
@@ -331,9 +335,9 @@ public class ListaTestPersonal {
         assertEquals(t, null);
     }
 
-/**************************************************************************** */
-// TEST DE CLONAR
-/**************************************************************************** */
+    /**************************************************************************** */
+    // TEST DE CLONAR
+    /**************************************************************************** */
     @Test
     public void clonarVacia() {
         Lista l = new Lista();
@@ -356,9 +360,9 @@ public class ListaTestPersonal {
     @Test
     public void clonarConElementos() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
-        l.insertar(3,3);
+        l.insertar(1, 1);
+        l.insertar(2, 2);
+        l.insertar(3, 3);
         Lista lC = l.clone();
         boolean ev = l.esVacia();
         boolean evC = lC.esVacia();
@@ -375,4 +379,3 @@ public class ListaTestPersonal {
         assertEquals(t, tC);
     }
 }
-
