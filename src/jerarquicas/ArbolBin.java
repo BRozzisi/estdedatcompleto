@@ -290,7 +290,7 @@ public class ArbolBin {
             while (!Q.esVacia()) {
                 nodoActual = (NodoArbol) Q.obtenerFrente();
                 Q.sacar();
-                listaPorNiveles.insertar(nodoActual, l);
+                listaPorNiveles.insertar(nodoActual.getElem(), l);
                 l++;
                 if (nodoActual.getIzquierdo() != null) {
                     // Si el nodo en el frente de la cola tiene HI, lo pone al final de la cola.
@@ -618,5 +618,22 @@ public class ArbolBin {
         }
 
         return s;
+    }
+
+    /**************************************************************************************************************** 
+     * MÉTODOS PARA SIMULACRO DEL PRIMER PARCIAL
+     ****************************************************************************************************************/
+    public boolean verificarPatron(Lista patron) {
+        boolean esPatron = true;
+        Lista patronAux = patron.clone();
+        NodoArbol nodoAux = this.raiz;
+        int i = 1;
+        while ((esPatron) && (nodoAux != null)) {
+            Object aux = patron.recuperar(i);
+            if (aux == nodoAux.getElem()) {
+
+            }
+        }
+        return esPatron;
     }
 }

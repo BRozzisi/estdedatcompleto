@@ -1,6 +1,9 @@
 package aplicaciones;
 import lineales.dinamicas.*;
 
+// Implementar la operación boolean verificarPatron(Lista patron), que recibe por parámetro una lista patron
+// y determine si coincide exactamente con al menos un camino del árbol que comience en la raíz y termine en
+// una hoja.
 public class SimulacroPrimerParcial {
     public static Cola generar(Cola c1) {
         Cola cr = new Cola();
@@ -46,22 +49,9 @@ public class SimulacroPrimerParcial {
         }
         return cr;
     }
+    
 
     public static void main (String[] args) {
-        Cola c1 = new Cola();
-        c1.poner('A');
-        c1.poner('B');
-        c1.poner('#');
-        c1.poner('C');
-        c1.poner('D');
-        c1.poner('E');
-        c1.poner('#');
-        c1.poner('F');
 
-        Cola c2 = generar(c1);
-
-        System.out.println(c1);
-
-        System.out.println(c2);
     }
 }

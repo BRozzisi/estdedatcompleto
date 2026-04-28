@@ -39,12 +39,12 @@ public class App {
     public static void main(String[] args) throws Exception {
         ArbolBin arbol = new ArbolBin();
 
-        // cargarArbolCompleto4Niveles(arbol);
+        cargarArbolCompleto4Niveles(arbol);
         // cargarArbolSoloRaiz(arbol);
         // cargarArbolAsimetrico(arbol);
 
         Lista listaPorNiveles = arbol.listarPorNiveles();
 
-        System.out.println(listaPorNiveles.toString());
+        System.out.println(arbol.toString());
     }
 }
