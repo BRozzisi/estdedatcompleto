@@ -36,15 +36,49 @@ public class App {
         arbol.insertar("G", "E", true);
         arbol.insertar("H", "E", false);
     }
+
+    public static void cargarArbolParaPatron(ArbolBin a) {
+        a.insertarPorPosicion("A", 0, false);
+        a.insertarPorPosicion("B", 1, true);
+        a.insertarPorPosicion("B", 1, false);
+        a.insertarPorPosicion("D", 2, true);
+        a.insertarPorPosicion("D", 4, true);
+        a.insertarPorPosicion("D", 4, false);
+        a.insertarPorPosicion("Z", 5, false);
+        a.insertarPorPosicion("F", 7, true);
+        a.insertarPorPosicion("E", 7, false);
+        a.insertarPorPosicion("G", 9, true);
+    }
+
+    public static void a(Object nazi){ 
+        System.out.println(nazi);
+    }
     public static void main(String[] args) throws Exception {
-        ArbolBin arbol = new ArbolBin();
+        ArbolBin a1 = new ArbolBin();
+        ArbolBin a2 = new ArbolBin();
+        cargarArbolAsimetrico(a2);
+        ArbolBin a3 = new ArbolBin();
+        cargarArbolCompleto4Niveles(a3);
+        ArbolBin a4 = new ArbolBin();
+        cargarArbolSoloRaiz(a4);
 
-        cargarArbolCompleto4Niveles(arbol);
-        // cargarArbolSoloRaiz(arbol);
-        // cargarArbolAsimetrico(arbol);
+        ArbolBin a1c = a1.clonarInvertido();
+        ArbolBin a2c = a2.clonarInvertido();
+        ArbolBin a3c = a3.clonarInvertido();
+        ArbolBin a4c = a4.clonarInvertido();
 
-        Lista listaPorNiveles = arbol.listarPorNiveles();
-
-        System.out.println(arbol.toString());
+        String nazi;
+        System.out.println("------------------------------------------------------------");
+        nazi = a1c.toString();
+        a(nazi);
+        System.out.println("------------------------------------------------------------");
+        nazi = a2c.toString();
+        a(nazi);
+        System.out.println("------------------------------------------------------------");
+        nazi = a3c.toString();
+        a(nazi);
+        System.out.println("------------------------------------------------------------");
+        nazi = a4c.toString();
+        a(nazi);
     }
 }

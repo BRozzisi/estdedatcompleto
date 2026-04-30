@@ -624,16 +624,67 @@ public class ArbolBin {
      * MÉTODOS PARA SIMULACRO DEL PRIMER PARCIAL
      ****************************************************************************************************************/
     public boolean verificarPatron(Lista patron) {
-        boolean esPatron = true;
-        Lista patronAux = patron.clone();
-        NodoArbol nodoAux = this.raiz;
-        int i = 1;
-        while ((esPatron) && (nodoAux != null)) {
-            Object aux = patron.recuperar(i);
-            if (aux == nodoAux.getElem()) {
+        boolean esPatron = false;
+        if (!this.esVacio()){ 
+            int l = patron.longitud();
+            esPatron = verificarPatronAux(this.raiz, patron, 1, l);
+        }
+        
+        return esPatron;
+    }
 
+    private boolean verificarPatronAux(NodoArbol n, Lista lp, int i, int l) {
+        boolean esPatron = false;
+        if (n != null) {
+            if (n.getElem() == lp.recuperar(i)) {
+                if (i == l) {
+                    if ((n.getIzquierdo() == null) && (n.getDerecho() == null)) {
+                        esPatron = true;
+                    }
+                } else {
+                    esPatron = verificarPatronAux(n.getIzquierdo(), lp, i+1, l);
+                    if (!esPatron) {
+                        esPatron = verificarPatronAux(n.getDerecho(), lp, i+1, l);
+                    }
+                }
+            }
+            
+        }
+
+        return esPatron;
+    }
+    
+    public Lista frontera() {
+        Lista l = new Lista();
+        fronteraAux(this.raiz, l);
+        return l;
+    }
+
+    private void fronteraAux(NodoArbol n, Lista l) {
+        if (n != null) {
+            if (n.esHoja()) {
+                l.insertar(n, l.longitud()+1);
+            } else {
+                fronteraAux(n.getIzquierdo(), l);
+                fronteraAux(n.getDerecho(), l);
             }
         }
-        return esPatron;
+    }
+
+    public ArbolBin clonarInvertido() {
+        ArbolBin aInvertido = new ArbolBin();
+        if (this.raiz != null) {
+            aInvertido.raiz = clonarInvertidoAux(this.raiz);
+        }
+
+        return aInvertido;
+    }
+
+    private NodoArbol clonarInvertidoAux(NodoArbol nOg) {
+        NodoArbol nInv = null;
+        if (nOg != null) {
+            nInv = new NodoArbol(nOg.getElem(), clonarInvertidoAux(nOg.getDerecho()), clonarInvertidoAux(nOg.getIzquierdo()));
+        }
+        return nInv;
     }
 }

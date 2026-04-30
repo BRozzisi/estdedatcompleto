@@ -222,4 +222,22 @@ public class Lista {
         }
         return lMult;
     }
+
+    public void eliminarApariciones(Object elem) {
+            while ((this.cabecera != null) && (this.cabecera.getElemento() == elem)) {
+                this.cabecera = this.cabecera.getEnlace();
+            }
+            if (this.cabecera != null) {
+                Nodo nodoAux = this.cabecera;
+                Nodo nodoAux2 = nodoAux.getEnlace();
+                while (nodoAux2 != null) {
+                    if (nodoAux2.getElemento() == elem) {
+                        nodoAux.setEnlace(nodoAux2.getEnlace());
+                    } else {
+                        nodoAux = nodoAux.getEnlace();
+                    }
+                    nodoAux2 = nodoAux2.getEnlace();
+                }
+            }
+    }
 }
