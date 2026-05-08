@@ -14,6 +14,7 @@ import lineales.dinamicas.Cola;
  */
 
 public class ArbolBin {
+    
     private NodoArbol raiz;
 
     /**
@@ -662,13 +663,17 @@ public class ArbolBin {
 
     private void fronteraAux(NodoArbol n, Lista l) {
         if (n != null) {
-            if (n.esHoja()) {
+            if (this.esHoja(n)) {
                 l.insertar(n, l.longitud()+1);
             } else {
                 fronteraAux(n.getIzquierdo(), l);
                 fronteraAux(n.getDerecho(), l);
             }
         }
+    }
+
+    private boolean esHoja(NodoArbol n) {
+        return ((n.getIzquierdo() == null) && (n.getDerecho() == null));
     }
 
     public ArbolBin clonarInvertido() {

@@ -98,8 +98,4 @@ public class NodoArbol {
 
         return s;
     }
-
-    public boolean esHoja(){ 
-        return ((this.izquierdo == null) && (this.derecho == null));
-    }
 }

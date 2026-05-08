@@ -23,7 +23,6 @@ public class Lista {
 
     /**
      * Pone un elemento en la posición indicada
-     * 
      * @param elem elemento a guardar
      * @param pos  posicion en la que queremos guardar elem
      * @return true si pos estaba dentro del rango válido para guardar
@@ -239,5 +238,27 @@ public class Lista {
                     nodoAux2 = nodoAux2.getEnlace();
                 }
             }
+    }
+
+    public boolean insertarAntesDe(Object elem1, Object elem2) {
+        boolean exito = false;
+        if (this.cabecera != null) {
+            if (this.cabecera.getElemento()  == elem2) {
+                this.cabecera = new Nodo(elem1, this.cabecera);
+                exito = true;
+            }
+            Nodo nodoAux = this.cabecera.getEnlace();
+            Nodo suEnlace;
+            while (nodoAux != null) {
+                suEnlace = nodoAux.getEnlace();
+                if ((suEnlace != null) && (suEnlace.getElemento() == elem2)) {
+                    nodoAux.setEnlace(new Nodo(elem1, suEnlace));
+                    nodoAux = nodoAux.getEnlace();
+                    exito = true;
+                }
+                nodoAux = nodoAux.getEnlace();
+            }
+        }
+        return exito;
     }
 }
