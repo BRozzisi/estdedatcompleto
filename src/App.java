@@ -95,28 +95,24 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         ArbolGen ag = new ArbolGen();
-        cargarArbolGen(ag);
-        boolean ex = ag.insertar("r", "e");
-        System.out.println(ag.toString());
+        ag.insertar("a", null);
+        ag.insertar("b", "a");
+        ag.insertar("c", "a");
+        ag.insertar("d", "a");
+        ag.insertar("f", "b");
+        ag.insertar("f", "b");
+        ag.insertar("f", "b");
+        ag.insertar("f", "b");
+        ag.insertar("f", "b");
+        ag.insertar("f", "b");
+        ag.insertar("f", "b");
+        ag.insertar("f", "b");
 
-        a -> d, c, b, 
-d -> i, h, g, 
-i -> o, n, 
-o -> 
-n -> 
-h -> 
-g -> m, 
-m -> q, p, 
-q -> 
-p -> 
-c -> 
-b -> f, e, 
-f -> l, k, j, 
-l -> 
-k -> 
-j -> 
-e -> r, 
-r -> 
+        ArbolGen ag2 = ag.clone();
+
+        System.out.println(ag);
+        System.out.println("------------------------------------------------------------");
+        System.out.println(ag2);
     }
     
 }

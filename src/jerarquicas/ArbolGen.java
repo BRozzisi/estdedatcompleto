@@ -1,9 +1,10 @@
 package jerarquicas;
 import lineales.dinamicas.Lista;
 import lineales.dinamicas.Cola;
-
+ 
 public class ArbolGen {
     private NodoGen raiz;
+
 
     public ArbolGen() {
         this.raiz = null;
@@ -12,12 +13,17 @@ public class ArbolGen {
     public boolean insertar(Object elem, Object elemPadre) {
         boolean exito = true;
         if (this.raiz == null) {
+            // Si el arbol esta vacío, inserta el elemento dado en la raiz.
             this.raiz = new NodoGen(elem, null, null);
         } else {
+            // Si el arbol no esta vacío busca al nodo con el elemento padre dado.
             NodoGen padre = buscarPorElem(this.raiz, elemPadre);
             if (padre != null) {
+                // Si se encontro al padre, se le asigna como hijo un nuevo nodo con el elemento dado, y como hermano al
+                // hijo actual del padre
                 padre.setHijoIzquierdo(new NodoGen(elem, null, padre.getHijoIzquierdo()));
             } else {
+                // Si no se encontro al padre retorna false
                 exito = false;
             }
         }
@@ -27,16 +33,22 @@ public class ArbolGen {
     private NodoGen buscarPorElem(NodoGen n, Object elem) {
         NodoGen nBuscado = null;
         if (n != null) {
+            // Si el nodo actual no es nulo
             if (n.getElem() == elem) {
+                // Si el nodo actual tiene al elemento buscado se retorna el nodo actual
                 nBuscado = n;
             } else {
+                // Si el nodo actual no tiene al elemento buscado 
                 NodoGen hijo = n.getHijoIzquierdo();
                 if (hijo == null) {
+                    // Si el nodo actual no tiene hijos, pregunta al hermano derecho
                     hijo = n.getHermanoDerecho();
                     nBuscado = buscarPorElem(hijo, elem);
                 } else {
+                    // Si el nodo actual tiene hijos, pregunta a ellos
                     nBuscado = buscarPorElem(hijo, elem);
                     if (nBuscado == null) {
+                        // Si no lo encontro en los hijos, pregunta al hermano.
                         hijo = n.getHermanoDerecho();
                         nBuscado = buscarPorElem(hijo, elem);
                     }
@@ -48,26 +60,27 @@ public class ArbolGen {
     }
 
     public boolean insertarPorPosicion(Object elem, int posPadre) {
-        boolean exito = true;
+        boolean exito = false;
         if (posPadre < 0) {
+            // Si la posicion ingresada es negativa se toma como invalida y retorna false
             exito = false;
         } else if (posPadre == 0) {
             if (this.raiz == null) {
+                // Si la posicion ingresada es 0 y el arbol no tiene raiz, se ingresa el elemento en la raiz y retorna
+                // true
                 this.raiz = new NodoGen(elem, null, null);
-            } else {
-                exito = false;
+                exito = true;
             }
         } else {
             if (this.raiz != null) {
+                // Si la posicion es mayor a 0 y el arbol tiene raiz, se busca al objeto en la posicion
                 int[] i = {0};
                 NodoGen padre = buscarPorPos(this.raiz, posPadre, i);
                 if (padre != null) {
+                    // Si se encontro al padre le asigna el elemento como hijo y retorna true.
                     padre.setHijoIzquierdo(new NodoGen(elem, null, padre.getHijoIzquierdo()));
-                } else {
-                    exito = false;
+                    exito = true;
                 }
-            } else {
-                exito = false;
             }
         }
         return exito;
@@ -76,10 +89,13 @@ public class ArbolGen {
     private NodoGen buscarPorPos(NodoGen n, int posPadre, int[] i) {
         NodoGen nBuscado = null;
         if (n != null) {
+            // Si el nodo actual no es nulo
             i[0] = i[0] + 1;
             if (i[0] == posPadre) {
+                // Si el contador es igual a la posicion deseada retorna el nodo actual
                 nBuscado = n;
             } else {
+                // Si el contador no es igual recorre en preorden
                 NodoGen hijo = n.getHijoIzquierdo();
                 while ((hijo != null) && (nBuscado == null)) {
                     nBuscado = buscarPorPos(hijo, posPadre, i);
@@ -97,9 +113,12 @@ public class ArbolGen {
     private boolean perteneceAux(NodoGen n, Object elem) {
         boolean pertenece = false;
         if (n != null) {
+            // Si el nodo actual no es nulo
             if (n.getElem() == elem) {
+                // Si el nodo actual tiene al elemento buscado, retorna true
                 pertenece = true;
             } else {
+                // Si el nodo actual no tiene al elemento buscado, pregunta en preorden
                 NodoGen hijo = n.getHijoIzquierdo();
                 while ((hijo != null) && (!pertenece)) {
                     pertenece = perteneceAux(hijo, elem);
@@ -119,16 +138,20 @@ public class ArbolGen {
     private boolean ancestrosAux(NodoGen n, Object elem, Lista l) {
         boolean encontrado = false;
         if (n !=  null) {
+            // Si el nodo actual no es nulo
             if (n.getElem() == elem) {
+                // Si el nodo actual tiene al elemento buscado retorna true, y lo inserta adelante de la lista
                 encontrado = true;
                 l.insertar(n.getElem(), 1);
             } else {
+                // Si el nodo actual no tiene al elemento buscado pregunta en preorden hasta encontrarlo
                 NodoGen hijo = n.getHijoIzquierdo();
                 while ((hijo != null) && (!encontrado)) {
                     encontrado = ancestrosAux(hijo, elem, l);
                     hijo = hijo.getHermanoDerecho();
                 }
                 if (encontrado) {
+                    // Si lo encontro se inserta adelante de la lista
                     l.insertar(n.getElem(), 1);
                 }
             }
@@ -143,10 +166,13 @@ public class ArbolGen {
     public int altura() {
         int i;
         if (this.raiz == null) {
+            // Si el arbol esta vacio retorna -1
             i = -1;
         } else if (this.raiz.getHijoIzquierdo() == null) {
+            // Si la raiz no tiene hijos retorna 0
             i = 0;
         } else {
+            // Si la raiz tiene hijos retorna al metodo auxiliar
             i = alturaAux(this.raiz, 0);
         }
         return i;
@@ -155,15 +181,19 @@ public class ArbolGen {
     private int alturaAux(NodoGen n, int i) {
         int j = i;
         int aux;
+        // Recorre en preorden con el contador + 1
         NodoGen hijo = n.getHijoIzquierdo();
         while (hijo != null) {
             aux = alturaAux(hijo, j+1);
             if (aux > i) {
+                // Si el contador devuelto por ese hijo es mayor a alguno de los hijos recorridos anteriormente, se
+                // setea como mayor
                 i = aux;
             }
             hijo = hijo.getHermanoDerecho();
         }
         if (i > j) {
+            // Si el contador fue modificado lo retorna
             j = i;
         }
         return j;
@@ -173,9 +203,11 @@ public class ArbolGen {
         int nivel = -1;
         boolean[] aux = {false};
         if (this.raiz != null) {
+            // Si la raiz no es nula retorna el auxiliar
             nivel = nivelAux(this.raiz, elem, 0, aux);
         } 
         if ((this.raiz == null) || (!aux[0])) {
+            // Si la raiz es nula, o el auxiliar no encontro al objeto ingresado, retorna -1
             nivel = -1;
         }
         return nivel;
@@ -184,14 +216,18 @@ public class ArbolGen {
     private int nivelAux(NodoGen n, Object elem, int i, boolean[] encontrado) {
         int j = i;
         if (n.getElem() == elem) {
+            // Si el nodo actual tiene al elemento buscado, cambia la bandera a true
             encontrado[0] = true;
         } else {
+            // Si el nodo actual no tiene al elemento buscado, recorre en preorden con contador + 1 hasta que se termine
+            // el subarbol o hasta que lo encuentre
             NodoGen hijo = n.getHijoIzquierdo();
             while ((hijo != null) && (!encontrado[0])) {
                 i = nivelAux(hijo, elem, j+1, encontrado);
                 hijo = hijo.getHermanoDerecho();
             }
             if (encontrado[0]) {
+                // Si se encontro al elemento retorna el contador que devolvio la rama de ese elemento
                 j = i;
             }
         }
@@ -202,8 +238,10 @@ public class ArbolGen {
         Object retorno = null;
         boolean[] encontrado = {false};
         if ((this.raiz != null) && (this.raiz.getElem() != elem)) {
+            // Si la raiz no es nula y su elemento no es el buscado, busca al padre mediante el metodo auxiliar
             NodoGen nPadre = buscarPadre(this.raiz, elem, encontrado);
             if (nPadre != null) {
+                // Si se encontro al padre, retorna su elemento
                 retorno = nPadre.getElem();
             }
         }
@@ -213,12 +251,16 @@ public class ArbolGen {
     private NodoGen buscarPadre(NodoGen n, Object elem, boolean[] encontrado) {
         NodoGen nPadre = null;
         if (n.getElem() == elem) {
+            // Si el nodo actual tiene al elemento buscado, cambia la bandera a true
             encontrado[0] = true;
         } else {
+            // Si el nodo actual no tiene al elemento buscado, recorre en preorden hasta llegar al final del subarbol
+            // o hasta encontrarlo
             NodoGen hijoActual = n.getHijoIzquierdo();
             while ((hijoActual != null) && (nPadre == null)) {
                 nPadre = buscarPadre(hijoActual, elem, encontrado);
                 if ((nPadre == null) && (encontrado[0])) {
+                    // Si el retorno fue nulo pero la bandera fue cambiada, entonces el padre es el actual, lo retorna
                     nPadre = n;
                 }
                 hijoActual = hijoActual.getHermanoDerecho();
@@ -241,7 +283,9 @@ public class ArbolGen {
     private NodoGen cloneAux(NodoGen n) {
         NodoGen nAux = null;
         if (n != null) {
-            nAux = new NodoGen(n.getElem(), n.getHijoIzquierdo(), n.getHermanoDerecho());
+            // Si el nodo actual no es nulo, retorna un nodo con el elemento del actual, el retorno del llamado con el
+            // hijo izquierdo y el retorno del llamado con el hermano derecho.
+            nAux = new NodoGen(n.getElem(), cloneAux(n.getHijoIzquierdo()), cloneAux(n.getHermanoDerecho()));
         }
         return nAux;
     }
@@ -306,11 +350,15 @@ public class ArbolGen {
     public Lista listarPorNiveles() {
         Lista l = new Lista();
         Cola q = new Cola();
-        q.poner(this.raiz);
+        if (this.raiz != null) {
+            q.poner(this.raiz);
+        }
+        // Se agregan y quitan elementos de la cola por los niveles del arbol, hasta que la cola se vacie
         while (!q.esVacia()) {
             NodoGen nodoAux = (NodoGen) q.obtenerFrente();
             q.sacar();
             l.insertar(nodoAux.getElem(), l.longitud()+1);
+            // Pone todos los hijos del nodoAux en la cola.
             NodoGen hijo = nodoAux.getHijoIzquierdo();
             while (hijo != null) {
                 q.poner(hijo);
