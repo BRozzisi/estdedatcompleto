@@ -95,24 +95,16 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         ArbolGen ag = new ArbolGen();
+        
+        cargarArbolGen(ag);
         ag.insertar("a", null);
-        ag.insertar("b", "a");
-        ag.insertar("c", "a");
-        ag.insertar("d", "a");
-        ag.insertar("f", "b");
-        ag.insertar("f", "b");
-        ag.insertar("f", "b");
-        ag.insertar("f", "b");
-        ag.insertar("f", "b");
-        ag.insertar("f", "b");
-        ag.insertar("f", "b");
-        ag.insertar("f", "b");
 
-        ArbolGen ag2 = ag.clone();
+        int altura = ag.altura();
+        Lista l1 = ag.listaQueJustificaLaAltura();
+        int l1l = l1.longitud();
 
-        System.out.println(ag);
-        System.out.println("------------------------------------------------------------");
-        System.out.println(ag2);
+        System.out.println(altura + " = " + (l1l-1));
+        System.out.println(l1);
     }
     
 }
