@@ -54,23 +54,72 @@ public class App {
     }
 
     public static void cargarArbolGen(ArbolGen ag) {
-        ag.insertar("a", null);
-        ag.insertar("b", "a");
-        ag.insertar("c", "a");
-        ag.insertar("d", "a");
-        ag.insertar("e", "b");
-        ag.insertar("f", "b");
-        ag.insertar("j", "f");
-        ag.insertar("k", "f");
-        ag.insertar("l", "f");
-        ag.insertar("g", "d");
-        ag.insertar("h", "d");
-        ag.insertar("i", "d");
-        ag.insertar("m", "g");
-        ag.insertar("p", "m");
-        ag.insertar("q", "m");
-        ag.insertar("n", "i");
-        ag.insertar("o", "i");
+        ag.insertar("estdedatcompleto", null);
+
+        ag.insertar("README.md", "estdedatcompleto");
+        ag.insertar("src", "estdedatcompleto");
+        ag.insertar("lib", "estdedatcompleto");
+        ag.insertar("bin", "estdedatcompleto");
+        ag.insertar(".vscode", "estdedatcompleto");
+
+        ag.insertar("settings.json", ".vscode");
+
+        ag.insertar("App.class", "bin");
+        ag.insertar("testsbin", "bin");
+        ag.insertar("linealesbin", "bin");
+        ag.insertar("jerarquicasbin", "bin");
+        ag.insertar("aplicacionesbin", "bin");
+
+        ag.insertar("SimulacroPrimerParcial.class", "aplicacionesbin");
+
+        ag.insertar("ArbolBin.class", "jerarquicasbin");
+        ag.insertar("ArbolGen.class", "jerarquicasbin");
+        ag.insertar("NodoArbol.class", "jerarquicasbin");
+        ag.insertar("NodoGen.class", "jerarquicasbin");
+
+        ag.insertar("estaticasbin", "linealesbin");
+        ag.insertar("Pila.class", "estaticasbin");
+        ag.insertar("Cola.class", "estaticasbin");
+        ag.insertar("dinamicasbin", "linealesbin");
+        ag.insertar("Pila.class", "dinamicasbin");
+        ag.insertar("Nodo.class", "dinamicasbin");
+        ag.insertar("Lista.class", "dinamicasbin");
+        ag.insertar("Cola.class", "dinamicasbin");
+
+        ag.insertar("ArbolBinTestPersonal.class", "testsbin");
+        ag.insertar("ArbolGenTestPersonal.class", "testsbin");
+        ag.insertar("ListaTestPersonal.class", "testsbin");
+        ag.insertar("PilaTest.class", "testsbin");
+
+        ag.insertar("junit-platform-console-standalone-1.13.0-M3.jar", "lib");
+
+        ag.insertar("App.java", "src");
+        ag.insertar("tests", "src");
+        ag.insertar("lineales", "src");
+        ag.insertar("jerarquicas", "src");
+        ag.insertar("aplicaciones", "src");
+
+        ag.insertar("SimulacroPrimerParcial.java", "aplicacionesbin");
+
+        ag.insertar("ArbolBin.java", "jerarquicas");
+        ag.insertar("ArbolGen.java", "jerarquicas");
+        ag.insertar("NodoArbol.java", "jerarquicas");
+        ag.insertar("NodoGen.java", "jerarquicas");
+
+        ag.insertar("estaticas", "lineales");
+        ag.insertar("Pila.java", "estaticas");
+        ag.insertar("Cola.java", "estaticas");
+        ag.insertar("dinamicas", "lineales");
+        ag.insertar("Pila.java", "dinamicas");
+        ag.insertar("Nodo.java", "dinamicas");
+        ag.insertar("Lista.java", "dinamicas");
+        ag.insertar("Cola.java", "dinamicas");
+
+        ag.insertar("ArbolBinTestPersonal.java", "tests");
+        ag.insertar("ArbolGenTestPersonal.java", "tests");
+        ag.insertar("ListaTestPersonal.java", "tests");
+        ag.insertar("PilaTest.java", "tests");
+
     }
 
     public static void cargarArbolGenPorPos(ArbolGen ag) {
@@ -96,15 +145,10 @@ public class App {
     public static void main(String[] args) throws Exception {
         ArbolGen ag = new ArbolGen();
         
-        cargarArbolGen(ag);
-        ag.insertar("a", null);
+        cargarArbolGenPorPos(ag);
 
-        int altura = ag.altura();
-        Lista l1 = ag.listaQueJustificaLaAltura();
-        int l1l = l1.longitud();
-
-        System.out.println(altura + " = " + (l1l-1));
-        System.out.println(l1);
+        System.out.println(ag.listaQueJustificaLaAltura());
+        
     }
     
 }
