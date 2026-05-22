@@ -1,6 +1,9 @@
 package jerarquicas;
 
 import lineales.dinamicas.Lista;
+
+import java.util.Queue;
+
 import lineales.dinamicas.Cola;
 
 public class ArbolGen {
@@ -442,39 +445,56 @@ public class ArbolGen {
         return esPatron;
     }
 
-    public Lista listaQueJustificaLaAltura() {
-        Lista listaDeAltura = new Lista();
+    public Lista frontera() {
+        Lista listaNodosFrontera = new Lista();
         if (this.raiz != null) {
-            listaQueJustificaLaAlturaAux(this.raiz, listaDeAltura, 0);
-            listaDeAltura.insertar(this.raiz.getElem(), 1);
+            fronteraAux(this.raiz, listaNodosFrontera);
         }
-        return listaDeAltura;
+        return listaNodosFrontera;
     }
 
-    private int listaQueJustificaLaAlturaAux(NodoGen n, Lista la, int i) {
-        int j = i;
-        int aux;
-        // Recorre en preorden con el contador + 1
+    private void fronteraAux(NodoGen n, Lista frontera) {
         NodoGen hijo = n.getHijoIzquierdo();
-        NodoGen hijoMayor = null;
-        while (hijo != null) {
-            aux = listaQueJustificaLaAlturaAux(hijo, la, j + 1);
-            if (aux > i) {
-                // Si el contador devuelto por ese hijo es mayor a alguno de losE hijos
-                // recorridos anteriormente, se
-                // setea como mayor
-                hijoMayor = hijo;
-                i = aux;
-            }
-            hijo = hijo.getHermanoDerecho();
+        if (hijo == null) {
+            frontera.insertar(n.getElem(), frontera.longitud() + 1);
+        } else {
+            do {
+                fronteraAux(hijo, frontera);
+                hijo = hijo.getHermanoDerecho();
+            } while (hijo != null);
         }
-        if (i > j) {
-            // Si el contador fue modificado lo retorna
-            if (hijoMayor != null) {
-                la.insertar(hijoMayor.getElem(), 1);
-            }
-            j = i;
-        }
-        return j;
     }
+    
+    public Lista listaQueJustificaLaAltura() {
+    Lista listaDeAltura = new Lista();
+    if (this.raiz != null) {
+        listaDeAltura = listaQueJustificaLaAlturaAux(this.raiz);
+    }
+    return listaDeAltura;
+}
+
+private Lista listaQueJustificaLaAlturaAux(NodoGen n) {
+    Lista mayorCaminoHijos = new Lista();
+    int maxAltura = -1;
+
+    // 1. Explorar todos los hijos para encontrar el camino más largo entre ellos
+    NodoGen hijo = n.getHijoIzquierdo();
+    while (hijo != null) {
+        Lista caminoHijo = listaQueJustificaLaAlturaAux(hijo);
+        int alturaHijo = caminoHijo.longitud();
+
+        if (alturaHijo > maxAltura) {
+            maxAltura = alturaHijo;
+            mayorCaminoHijos = caminoHijo; // Nos quedamos con la lista más larga
+        }
+        hijo = hijo.getHermanoDerecho();
+    }
+
+    // 2. Crear una nueva lista que sea: mi elemento + el mejor camino de mis hijos
+    // Usamos un clon o una lista nueva para no alterar las rutas de otros niveles
+    Lista resultado = mayorCaminoHijos.clone();
+    resultado.insertar(n.getElem(), 1); // Insertamos al padre al principio
+
+    return resultado;
+}
 }
