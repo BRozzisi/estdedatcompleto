@@ -2,8 +2,6 @@ package jerarquicas;
 
 import lineales.dinamicas.Lista;
 
-import java.util.Queue;
-
 import lineales.dinamicas.Cola;
 
 public class ArbolGen {

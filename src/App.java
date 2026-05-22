@@ -35,7 +35,6 @@ public class App {
         arbol.insertar("G", "E", true);
         arbol.insertar("H", "E", false);
     }
-
     public static void cargarArbolParaPatron(ArbolBin a) {
         a.insertarPorPosicion("A", 0, false);
         a.insertarPorPosicion("B", 1, true);
@@ -48,11 +47,9 @@ public class App {
         a.insertarPorPosicion("E", 7, false);
         a.insertarPorPosicion("G", 9, true);
     }
-
     public static void a(Object nazi){ 
         System.out.println(nazi);
     }
-
     public static void cargarArbolGen(ArbolGen ag) {
         ag.insertar("estdedatcompleto", null);
 
