@@ -1,6 +1,6 @@
 import jerarquicas.*;
 import lineales.dinamicas.*;
-
+import conjuntistas.*;
 public class App {
     public static void cargarArbolCompleto4Niveles(ArbolBin arbol) {
         arbol.insertar("A", null, true);
@@ -93,18 +93,40 @@ public class App {
         ag.insertarPorPosicion("o", 3);
     }
 
+    public static void cargarArbolBBString(ArbolBB abb) {
+        abb.insertar("e");
+        abb.insertar("d");
+        abb.insertar("y");
+        abb.insertar("b");
+        abb.insertar("c");
+    }
+
+    public static void cargarArbolBBInts(ArbolBB abb) {
+        abb.insertar(17);
+        abb.insertar(10);
+        abb.insertar(50);
+        abb.insertar(5);
+        abb.insertar(14);
+        abb.insertar(11);
+        abb.insertar(26);
+        abb.insertar(80);
+        abb.insertar(30);
+        abb.insertar(100);
+        abb.insertar(28);
+        abb.insertar(8);
+    }
+
     public static void main(String[] args) throws Exception {
-        ArbolGen ag = new ArbolGen();
+        ArbolBB a = new ArbolBB();
+        ArbolBB b;
+
+        cargarArbolBBInts(a);
+
+        a.eliminar(50);
+
+        System.out.println(a);
+        System.out.println("-----------------------------------------------");
         
-        cargarArbolGen(ag);
-        ag.insertar("a", null);
-
-        int altura = ag.altura();
-        Lista l1 = ag.listaQueJustificaLaAltura();
-        int l1l = l1.longitud();
-
-        System.out.println(altura + " = " + (l1l-1));
-        System.out.println(l1);
     }
     
 }
