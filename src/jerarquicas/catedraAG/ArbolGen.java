@@ -71,32 +71,31 @@ public class ArbolGen {
         return 0;
     }
 
-    public boolean ancestros(Object e,Object p){
-        return true;
+    public Lista ancestros(Object e){
+        return new Lista();
     }
 
-    public boolean clone(Object e,Object p){
-        return true;
+    public ArbolGen clone(){
+        return new ArbolGen();
     }
 
-    public boolean vaciar(Object e,Object p){
-        return true;
+    public void vaciar(){
     }
 
-    public boolean listarPreorden(Object e,Object p){
-        return true;
+    public Lista listarPreorden(){
+        return new Lista();
     }
 
-    public boolean listarPostorden(Object e,Object p){
-        return true;
+    public Lista listarPostorden(){
+        return new Lista();
     }
 
-    public boolean listarInorden(Object e,Object p){
-        return true;
+    public Lista listarInorden(){
+        return new Lista();
     }
 
     public Lista porNiveles(){
-        return null;
+        return new Lista();
     }
 
     public String toString(){

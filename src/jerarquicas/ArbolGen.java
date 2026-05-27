@@ -63,21 +63,11 @@ public class ArbolGen {
 
     public boolean insertarPorPosicion(Object elem, int posPadre) {
         boolean exito = false;
-        if (posPadre < 0) {
-            // Si la posicion ingresada es negativa se toma como invalida y retorna false
-            exito = false;
-        } else if (posPadre == 0) {
-            if (this.raiz == null) {
-                // Si la posicion ingresada es 0 y el arbol no tiene raiz, se ingresa el
-                // elemento en la raiz y retorna
-                // true
-                this.raiz = new NodoGen(elem, null, null);
+        if (this.raiz == null) {
+            this.raiz = new NodoGen(elem, null, null);
                 exito = true;
-            }
         } else {
-            if (this.raiz != null) {
-                // Si la posicion es mayor a 0 y el arbol tiene raiz, se busca al objeto en la
-                // posicion
+            if (posPadre > 0) {
                 int[] i = { 0 };
                 NodoGen padre = buscarPorPos(this.raiz, posPadre, i);
                 if (padre != null) {
@@ -147,7 +137,6 @@ public class ArbolGen {
                 // Si el nodo actual tiene al elemento buscado retorna true, y lo inserta
                 // adelante de la lista
                 encontrado = true;
-                l.insertar(n.getElem(), 1);
             } else {
                 // Si el nodo actual no tiene al elemento buscado pregunta en preorden hasta
                 // encontrarlo
@@ -403,6 +392,7 @@ public class ArbolGen {
             }
         }
         return s;
+
     }
 
     /*************************************************************
