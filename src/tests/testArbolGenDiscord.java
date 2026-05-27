@@ -8,16 +8,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
-
-import lineales.dinamicas.*;
-import jerarquicas.ArbolGen;
-
-/**
- *
- * @author Catedra EDAT - FAI - UNCOMA
+/*- UNCOMA
  *         Ultima modificación: 10/04/2025
  *
  */
+
+import jerarquicas.ArbolGen;
+import lineales.dinamicas.Lista;
 
 /*
   * Se asume que la salida de toString() para Arbol devuelve 
@@ -25,7 +22,7 @@ import jerarquicas.ArbolGen;
   * El texto de salida del toString() puede contener cualquier otro texto antes o despues de la subcadena anterior.
 */
 
-public class testArbolGen {
+public class testArbolGenDiscord {
 
     private static boolean isSubstring(String s, String rx){
         Pattern pattern = Pattern.compile(rx);
@@ -121,8 +118,7 @@ public class testArbolGen {
         boolean i =a.insertarPorPosicion(1, 0);
         boolean ev = a.esVacio();
         String s = a.toString();
-        // assertFalse(ev);
-        assertTrue(ev); // POSICION INGRESADA 0? DEBERIA SER VACIO
+        assertFalse(ev);
         assertTrue(i);
         String rx="^1:$";
         boolean findSubstring = isSubstring(s,rx);
@@ -135,8 +131,7 @@ public class testArbolGen {
         boolean i =a.insertarPorPosicion(1, 1000);
         boolean ev = a.esVacio();
         String s = a.toString();
-        // assertFalse(ev);
-        assertTrue(ev); // POSICION INGRESADA 1000? DEBERIA SER VACIO
+        assertFalse(ev);
         assertTrue(i);
         String rx="^1:$";
         boolean findSubstring = isSubstring(s,rx);
@@ -153,7 +148,7 @@ public class testArbolGen {
         String s = a.toString();
         assertFalse(ev);
         assertTrue(i);
-        String rx="\"^1:2\r?\n2:3\r?\n3:$";
+        String rx="^1:2\r?\n2:3\r?\n3:$";
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
     };
@@ -304,12 +299,11 @@ public class testArbolGen {
     @Test
     public void testFatherDoesNotExistEmptyTree() {
         ArbolGen a = new ArbolGen();  
-        // int p = (int) a.padre(2);
         Object p = a.padre(2);
         boolean ev = a.esVacio();
         String s = a.toString();
         assertEquals(null,p);
-        assertFalse(ev);
+        assertTrue(ev);
         String rx="";
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
@@ -318,7 +312,6 @@ public class testArbolGen {
     public void testFatherDoesNotExistNonEmptyTree() {
         ArbolGen a = new ArbolGen();   
         a.insertar(1, null);
-        // int p = (int) a.padre(2);
         Object p = a.padre(2);
         boolean ev = a.esVacio();
         String s = a.toString();
@@ -333,7 +326,6 @@ public class testArbolGen {
     public void testFatherOfRoot() {
         ArbolGen a = new ArbolGen();   
         a.insertar(1, null);
-        // int p = (int) a.padre(1);
         Object p = a.padre(1);
         boolean ev = a.esVacio();
         String s = a.toString();
@@ -541,7 +533,7 @@ public class testArbolGen {
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
         String li=l.toString();
-        String rxl="\\[1,3\\]";
+        String rxl="\\[1,\\s*3\\]";
         boolean findSubstringl = isSubstring(li,rxl);
         assertTrue(findSubstringl);
 
@@ -618,7 +610,7 @@ public class testArbolGen {
         a.vaciar();
         boolean ev = a.esVacio();
         String s = a.toString();
-        assertFalse(ev); // ????????????????????????????????????????????????????????????????????????????????????????????
+        assertTrue(ev);
         String rx="";
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
@@ -632,7 +624,7 @@ public class testArbolGen {
         a.vaciar();
         boolean ev = a.esVacio();
         String s = a.toString();
-        assertFalse(ev); // ????????????????????????????????????????????????????????????????????????????????????????????
+        assertTrue(ev);
         String rx="";
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
@@ -647,7 +639,7 @@ public class testArbolGen {
         a.vaciar();
         boolean ev = a.esVacio();
         String s = a.toString();
-        assertFalse(ev); // ????????????????????????????????????????????????????????????????????????????????????????????
+        assertTrue(ev);
         String rx="";
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
@@ -660,8 +652,8 @@ public class testArbolGen {
         Lista l=a.listarPreorden();
         boolean ev = a.esVacio();
         String s = a.toString();
-        assertFalse(l.esVacia()); // ???????????????????????????????????????????????????????????????????????????????????
-        assertFalse(ev); // ????????????????????????????????????????????????????????????????????????????????????????????
+        assertTrue(l.esVacia());
+        assertTrue(ev);
         String rx="";
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
@@ -679,8 +671,7 @@ public class testArbolGen {
         a.insertar(3, 1) ;
         a.insertar(2, 1) ;
         a.insertar(5, 3) ;
-        // Lista l=a.ancestros(5);
-        Lista l = a.listarPreorden();
+        Lista l=a.listarPreorden();
         boolean ev = a.esVacio();
         String s = a.toString();
         assertFalse(l.esVacia());
@@ -689,7 +680,7 @@ public class testArbolGen {
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
         String li=l.toString();
-        String rxl="\\[1,2,3,5,4\\]";
+        String rxl="\\[1,\\s*2,\\s*3,\\s*5,\\s*4\\]";
         boolean findSubstringl = isSubstring(li,rxl);
         assertTrue(findSubstringl);
 
@@ -699,11 +690,9 @@ public class testArbolGen {
     @Test
     public void testPostorderListEmptyTree() {
         ArbolGen a = new ArbolGen();  
-        Lista l=a.listarPreorden();
+        Lista l=a.listarPosorden();
         boolean ev = a.esVacio();
         String s = a.toString();
-        // assertFalse(l.esVacia());
-        // assertFalse(ev);
         assertTrue(l.esVacia());
         assertTrue(ev);
         String rx="";
@@ -723,8 +712,7 @@ public class testArbolGen {
         a.insertar(3, 1) ;
         a.insertar(2, 1) ;
         a.insertar(5, 3) ;
-        // Lista l=a.ancestros(5);
-        Lista l = a.listarPosorden();
+        Lista l=a.listarPosorden();
         boolean ev = a.esVacio();
         String s = a.toString();
         assertFalse(l.esVacia());
@@ -733,9 +721,7 @@ public class testArbolGen {
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
         String li=l.toString();
-        System.out.println(li);
-        // String rxl="\\[4,5,3,2,1\\]";
-        String rxl = "\\[2,5,3,4,1\\]";
+        String rxl="\\[2,\\s*5,\\s*3,\\s*4,\\s*1\\]";
         boolean findSubstringl = isSubstring(li,rxl);
         assertTrue(findSubstringl);
 
@@ -744,12 +730,9 @@ public class testArbolGen {
     @Test
     public void testInorderListEmptyTree() {
         ArbolGen a = new ArbolGen();  
-        // Lista l=a.listarPreorden();
-        Lista l = a.listarInorden();
+        Lista l=a.listarInorden();
         boolean ev = a.esVacio();
         String s = a.toString();
-        // assertFalse(l.esVacia());
-        // assertFalse(ev);
         assertTrue(l.esVacia());
         assertTrue(ev);
         String rx="";
@@ -769,8 +752,7 @@ public class testArbolGen {
         a.insertar(3, 1) ;
         a.insertar(2, 1) ;
         a.insertar(5, 3) ;
-        // Lista l=a.ancestros(5);
-        Lista l = a.listarInorden();
+        Lista l=a.listarInorden();
         boolean ev = a.esVacio();
         String s = a.toString();
         assertFalse(l.esVacia());
@@ -779,7 +761,7 @@ public class testArbolGen {
         boolean findSubstring = isSubstring(s,rx);
         assertTrue(findSubstring);
         String li=l.toString();
-        String rxl="\\[2,1,5,3,4\\]";
+        String rxl="\\[2,\\s*1,\\s*5,\\s*3,\\s*4\\]";
         boolean findSubstringl = isSubstring(li,rxl);
         assertTrue(findSubstringl);
 

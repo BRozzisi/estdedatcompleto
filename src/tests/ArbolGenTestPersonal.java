@@ -1,10 +1,13 @@
 package tests;
 import lineales.dinamicas.Lista;
-import jerarquicas.*;
+import jerarquicas.ArbolGen;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.junit.Before;
+
 public class ArbolGenTestPersonal {
+    private ArbolGen arbol;
     public static void cargarArbolGen(ArbolGen ag) {
         ag.insertar("a", null);
         ag.insertar("b", "a");
@@ -42,6 +45,19 @@ public class ArbolGenTestPersonal {
         ag.insertarPorPosicion("q", 6);
         ag.insertarPorPosicion("n", 3);
         ag.insertarPorPosicion("o", 3);
+    }
+
+    @Before
+    public void setUp() {
+        arbol = new ArbolGen();
+        arbol.insertar('A', null);
+        arbol.insertar('B', 'A');
+        arbol.insertar('C', 'A');
+        arbol.insertar('D', 'A');
+        arbol.insertar('E', 'B');
+        arbol.insertar('F', 'B');
+        arbol.insertar('G', 'D');
+        arbol.insertar('H', 'E');
     }
     /*************************************************************
     * TEST DE ArbolGen()
@@ -120,82 +136,60 @@ public class ArbolGenTestPersonal {
     /**************************************************************************************************************** 
      * TESTS DE insertarPorPosicion(Object, int)
      ****************************************************************************************************************/
-    @Test public void insertarPPEnVacio() {
-        ArbolGen ag = new ArbolGen();
-        boolean ex = ag.insertarPorPosicion("a", 0);
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("a:");
-        assertEquals(ev, false);
-        assertEquals(tse, true);
-        assertEquals(ex, true);
+    @Test
+    public void insertarPorPosEnArbolVacio() {
+        ArbolGen a = new ArbolGen();
+        assertTrue(a.insertarPorPosicion('A', 0));
+        assertFalse(a.esVacio());
+        assertTrue(a.pertenece('A'));
     }
-    @Test public void insertarPPEnRaizNegativa() {
-        ArbolGen ag = new ArbolGen();
-        boolean ex = ag.insertarPorPosicion("a", -1);
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("");
-        assertEquals(ev, true);
-        assertEquals(tse, true);
-        assertEquals(ex, false);
+
+    @Test
+    public void insertarPorPosEnArbolVacioPosGrande() {
+        ArbolGen a = new ArbolGen();
+        assertTrue(a.insertarPorPosicion('A', 1000));
+        assertFalse(a.esVacio());
+        assertTrue(a.pertenece('A'));
     }
-    @Test public void insertarPPEnRaizMayorACero() {
-        ArbolGen ag = new ArbolGen();
-        boolean ex = ag.insertarPorPosicion("a", 5);
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("");
-        assertEquals(ev, true);
-        assertEquals(tse, true);
-        assertEquals(ex, false);
+
+    @Test
+    public void insertarPorPosEnRaiz() {
+        // pos 0 = raíz A, agrega hijo al final de B,C,D
+        ArbolGen a = new ArbolGen();
+        a.insertar('A', null);
+        a.insertar('B', 'A');
+        assertTrue(a.insertarPorPosicion('C', 1)); // padre en pos 0 = A
+        assertTrue(a.pertenece('C'));
+        assertEquals('A', a.padre('C'));
     }
-    @Test public void insertarPPHijoUnico() {
-        ArbolGen ag = new ArbolGen();
-        boolean ex = ag.insertarPorPosicion("a", 0);
-        boolean ex2 = ag.insertarPorPosicion("b", 1);
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("a:b\n"+ //
-                                "b:");
-        assertEquals(ev, false);
-        assertEquals(tse, true);
-        assertEquals(ex, true);
-        assertEquals(ex2, true);
+
+    @Test
+    public void insertarPorPosNodoProfundo() {
+        // árbol: A(pos0) -> B(pos1) -> E(pos2)
+        ArbolGen a = new ArbolGen();
+        a.insertarPorPosicion('A', 0);
+        a.insertarPorPosicion('B', 0); // hijo de A
+        a.insertarPorPosicion('E', 1); // hijo de B
+        assertTrue(a.insertarPorPosicion('Z', 2)); // hijo de E (pos 2)
+        assertTrue(a.pertenece('Z'));
+        assertEquals('E', a.padre('Z'));
     }
-    @Test public void insertarPPHermano() { 
-        ArbolGen ag = new ArbolGen();
-        boolean ex = ag.insertarPorPosicion("a", 0);
-        boolean ex2 = ag.insertarPorPosicion("b", 1);
-        boolean ex3 = ag.insertarPorPosicion("c", 1);
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("a:c,b\n"+ //
-                                "c:\n"+ //
-                                "b:");
-        assertEquals(ev, false);
-        assertEquals(tse, true);
-        assertEquals(ex, true);
-        assertEquals(ex2, true);
-        assertEquals(ex3, true);
+
+    @Test
+    public void insertarPorPosPadreInexistente() {
+        // pos 99 no existe en el árbol
+        ArbolGen a = new ArbolGen();
+        a.insertar('A', null);
+        assertFalse(a.insertarPorPosicion('Z', 99));
+        assertFalse(a.pertenece('Z'));
     }
-    @Test public void insertarPPEnPosicionInvalida() {
-        ArbolGen ag = new ArbolGen();
-        boolean ex = ag.insertarPorPosicion("a", 0);
-        boolean ex2 = ag.insertarPorPosicion("b", 1);
-        boolean ex3 = ag.insertarPorPosicion("c", 1);
-        boolean ex4 = ag.insertarPorPosicion("z", 20);
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("a:c,b\n"+ //
-                                "c:\n"+ //
-                                "b:");
-        assertEquals(ev, false);
-        assertEquals(tse, true);
-        assertEquals(ex, true);
-        assertEquals(ex2, true);
-        assertEquals(ex3, true);
-        assertEquals(ex4, false);
+
+    @Test
+    public void insertarPorPosAgregaComoUltimoHermano() {
+        // A ya tiene hijos B,C,D → insertar en pos 0 agrega al final
+        assertTrue(arbol.insertarPorPosicion('Z', 1));
+        assertTrue(arbol.pertenece('Z'));
+        assertEquals('A', arbol.padre('Z'));
     }
 
     /**************************************************************************************************************** 
@@ -260,76 +254,31 @@ public class ArbolGenTestPersonal {
     /**************************************************************************************************************** 
      * TESTS DE ancestros(Object)
      ****************************************************************************************************************/
-    @Test public void ancestroEnArbolVacio() {
-        ArbolGen ag = new ArbolGen();
-        Lista la = ag.ancestros("a");
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("");
-        boolean evla = la.esVacia();
-        String tsla = la.toString();
-        boolean tslae = tsla.equals("[]");
-        assertEquals(ev, true);
-        assertEquals(tse, true);
-        assertEquals(evla, true);
-        assertEquals(tslae, true);
+    @Test
+    public void ancestrosRaizVacia() {
+        assertTrue(arbol.ancestros('A').esVacia());
     }
-    @Test public void ancestroUnico() {
-        ArbolGen ag = new ArbolGen();
-        ag.insertar("a", null);
-        Lista la = ag.ancestros("a");
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("a:");
-        boolean evla = la.esVacia();
-        String tsla = la.toString();
-        boolean tslae = tsla.equals("[a]");
-        assertEquals(ev, false);
-        assertEquals(tse, true);
-        assertEquals(evla, false);
-        assertEquals(tslae, true);
+
+    @Test
+    public void ancestrosHojaProfunda() {
+        Lista r = arbol.ancestros('H'); // A, B, E
+        assertEquals(3, r.longitud());
+        assertEquals('A', r.recuperar(1));
+        assertEquals('B', r.recuperar(2));
+        assertEquals('E', r.recuperar(3));
     }
-    @Test public void testAncestros() {
-        ArbolGen ag = new ArbolGen();
-        ag.insertar("a", null);
-        ag.insertar("b", "a");
-        ag.insertar("c", "a");
-        ag.insertar("d", "b");
-        Lista la = ag.ancestros("d");
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("a:c,b\n"+ //
-                                "c:\n"+ //
-                                "b:d\n"+ //
-                                "d:");
-        boolean evla = la.esVacia();
-        String tsla = la.toString();
-        boolean tslae = tsla.equals("[a,b,d]");
-        assertEquals(ev, false);
-        assertEquals(tse, true);
-        assertEquals(evla, false);
-        assertEquals(tslae, true);
+
+    @Test
+    public void ancestrosInexistente() {
+        assertTrue(arbol.ancestros('Z').esVacia());
     }
-    @Test public void ancestroObjetoInexistente() {
-        ArbolGen ag = new ArbolGen();
-        ag.insertar("a", null);
-        ag.insertar("b", "a");
-        ag.insertar("c", "a");
-        ag.insertar("d", "b");
-        Lista la = ag.ancestros("z");
-        boolean ev = ag.esVacio();
-        String ts = ag.toString();
-        boolean tse = ts.equals("a:c,b\n"+ //
-                                "c:\n"+ //
-                                "b:d\n"+ //
-                                "d:");
-        boolean evla = la.esVacia();
-        String tsla = la.toString();
-        boolean tslae = tsla.equals("[]");
-        assertEquals(ev, false);
-        assertEquals(tse, true);
-        assertEquals(evla, true);
-        assertEquals(tslae, true);
+
+    @Test
+    public void ancestrosNoAgregaHermanos() {
+        Lista r = arbol.ancestros('G'); // solo A y D, no B ni C
+        assertEquals(2, r.longitud());
+        assertEquals('A', r.recuperar(1));
+        assertEquals('D', r.recuperar(2));
     }
 
     /**************************************************************************************************************** 

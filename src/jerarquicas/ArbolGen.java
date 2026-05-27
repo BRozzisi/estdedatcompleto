@@ -455,7 +455,7 @@ public class ArbolGen {
     return listaDeAltura;
 }
 
-private Lista listaQueJustificaLaAlturaAux(NodoGen n) {
+    private Lista listaQueJustificaLaAlturaAux(NodoGen n) {
     Lista mayorCaminoHijos = new Lista();
     int maxAltura = -1;
 
