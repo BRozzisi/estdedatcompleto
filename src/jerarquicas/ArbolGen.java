@@ -382,30 +382,24 @@ public class ArbolGen {
         return l;
     }
 
-    @Override
-    public String toString() {
-        String s = "";
-        if (this.raiz == null) {
-            s = "[]";
-        } else {
-            s = toStringAux(this.raiz);
-        }
-        return s;
+    public String toString(){
+        return toStingAux(this.raiz);
     }
 
-    private String toStringAux(NodoGen n) {
-        String s = "";
-        if (n != null) {
-            s += n.getElem().toString() + " -> ";
+    private String toStingAux(NodoGen n){
+        String s="";
+        if(n!=null){
+            s+=n.getElem().toString()+":";
             NodoGen hijo = n.getHijoIzquierdo();
-            while (hijo != null) {
-                s += hijo.getElem().toString() + ", ";
+            while (hijo!=null){
+                s+=hijo.getElem().toString();
                 hijo = hijo.getHermanoDerecho();
+                if (hijo!=null) s+=",";
             }
-            hijo = n.getHijoIzquierdo();
-            while (hijo != null) {
-                s += "\n" + toStringAux(hijo);
-                hijo = hijo.getHermanoDerecho();
+            hijo=n.getHijoIzquierdo();
+            while (hijo!=null){
+                s+='\n' + toStingAux(hijo);
+                hijo=hijo.getHermanoDerecho();
             }
         }
         return s;

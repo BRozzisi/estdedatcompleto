@@ -1,0 +1,180 @@
+package conjuntistas;
+
+public class ArbolAVL {
+    private NodoAVL raiz;
+
+    public ArbolAVL() {
+        this.raiz = null;
+    }
+
+    public boolean pertenece(Comparable elem) {
+        boolean pertenece = false;
+        int comparacion;
+        NodoAVL nodoAux = this.raiz;
+        while ((nodoAux != null) && (!pertenece)) {
+            comparacion = elem.compareTo(nodoAux.getElem());
+            if (comparacion < 0) {
+                nodoAux = nodoAux.getIzquierdo();
+            } else if (comparacion > 0) {
+                nodoAux = nodoAux.getDerecho();
+            } else {
+                pertenece = true;
+            }
+        }
+        return pertenece;
+    }
+
+    public boolean insertar(Comparable elemento) {
+        boolean exito = true;
+        if (this.raiz == null) {
+            // Si la raiz es nula, entonces asigna el elemento en la raiz
+            this.raiz = new NodoAVL(elemento);
+        } else {
+            // Si la raiz no es nula retorna el resultado del metodo auxiliar
+            exito = insertarAux(this.raiz, elemento);
+        }
+        return exito;
+    }
+
+    private boolean insertarAux(NodoAVL n, Comparable elemento) {
+        boolean exito = true;
+        int balance = 0;
+        if ((elemento.compareTo(n.getElem())) == 0) {
+            // Si el elemento es igual al del nodo actual, entonces retorna false ya que no
+            // puede haber 2 elementos
+            // iguales en esta implementacion del AVL
+            exito = false;
+        } else if (elemento.compareTo(n.getElem()) < 0) {
+            // Si el elemento es mas chico que el del nodo actual, pregunta:
+            if (n.getIzquierdo() != null) {
+                // Si el nodo actual ya tiene HI entonces llama recursivamente con el para que
+                // lo inserte en su
+                // subarbol izquierdo.
+                exito = insertarAux(n.getIzquierdo(), elemento);
+            } else {
+                // Si el nodo actual no tiene HI entonces ingresa el elemento ahi.
+                n.setIzquierdo(new NodoAVL(elemento));
+            }
+            balance = n.calcularBalance();
+            System.out.println(n.getElem().toString() + " " + balance);
+        } else {
+            // Si el elemento es mas grande que el del nodo actual, pregunta:
+            if (n.getDerecho() != null) {
+                // Si el nodo actual tiene HD entonces llama recursivamente con el para que lo
+                // inserte en su subarbol
+                // derecho
+                exito = insertarAux(n.getDerecho(), elemento);
+            } else {
+                // Si el nodo actual no tiene HD entonces inserta elemento ahi
+                n.setDerecho(new NodoAVL(elemento));
+            }
+            balance = n.calcularBalance();
+            System.out.println(n.getElem().toString() + " " + balance);
+        }
+        if ((balance <= -2) || (balance >= 2)) {
+            realizarRotacion(n, balance);
+        }
+        // Retorna false solo si el elemento ingresado ya estaba en el arbol
+        return exito;
+    }
+
+    private void realizarRotacion(NodoAVL n, int balance) {
+        if (balance > 0) {
+            int balanceIzquierdo = n.getIzquierdo().calcularBalance();
+            if ((balanceIzquierdo == 1) || (balanceIzquierdo == 0)){ 
+                System.out.println("Se realiza una rotacion simple a derecha con pivote " + n.getElem());
+                rotacionSimpleDer(n);
+            } else if (balanceIzquierdo < 0) {
+                System.out.println("Se realiza una rotacion doble der-izq con pivote " + n.getElem());
+                rotacionDobleIzqDer(n);
+            }
+        } else if (balance < 0){ 
+            int balanceDerecho = n.getDerecho().calcularBalance();
+            if ((balanceDerecho == -1) || (balanceDerecho == 0)) {
+                System.out.println("Se realiza una rotacion simple a izquierda con pivote " + n.getElem());
+                rotacionSimpleIzq(n);
+            } else if (balanceDerecho > 0) {
+                System.out.println("Se realiza una rotacion doble izq-der con pivote " + n.getElem());
+                rotacionDobleDerIzq(n);
+            }
+        }
+    }
+
+    private NodoAVL rotacionSimpleIzq(NodoAVL r) {
+        NodoAVL h = r.getDerecho();
+        NodoAVL temp = h.getIzquierdo();
+        h.setIzquierdo(r);
+        r.setDerecho(temp);
+        return h;
+    }
+
+    private NodoAVL rotacionSimpleDer(NodoAVL r) {
+        NodoAVL h = r.getIzquierdo();
+        NodoAVL temp = h.getDerecho();
+        h.setDerecho(r);
+        r.setIzquierdo(temp);
+        return h;
+    }
+
+    private void rotacionDobleDerIzq(NodoAVL r) {
+        r.setDerecho(rotacionSimpleDer(r.getDerecho()));
+        rotacionSimpleIzq(r);
+    }
+
+    private void rotacionDobleIzqDer(NodoAVL r) {
+        r.setIzquierdo(rotacionSimpleIzq(r.getIzquierdo()));
+        rotacionSimpleDer(r);
+    }
+
+    private void recalcularAlturaDelArbol(NodoAVL n) {
+        
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        if (this.raiz == null) {
+            // Si el arbol esta vacío, devuelve:
+            s = "[Arbol Binario de Busqueda vacío.]";
+        } else {
+            // Si el árbol no está vacío, genera al cadena con la raíz, y le suma el retorno
+            // del llamado al método
+            // auxiliar que recorre todo el árbol.
+            s += "Raiz: " + this.raiz.getElem() + "\n";
+            s += toStringAux(this.raiz);
+        }
+
+        return s;
+    }
+
+    private String toStringAux(NodoAVL nodo) {
+        String s = "";
+        boolean tieneIzq = nodo.getIzquierdo() != null;
+        boolean tieneDer = nodo.getDerecho() != null;
+        s += nodo.getElem() + ": ";
+        if (tieneIzq) {
+            // Si tiene HI añade el texto correspondiente
+            s += "HI: " + nodo.getIzquierdo().getElem() + " // ";
+        } else {
+            // Si no escribe que es null.
+            s += "HI: null // ";
+        }
+        if (tieneDer) {
+            // Si tiene HD añade el texto correspondiente
+            s += "HD: " + nodo.getDerecho().getElem() + "\n";
+        } else {
+            // Si no escribe que es null.
+            s += "HD: null\n";
+        }
+        if (tieneIzq) {
+            // Si tiene HI llama recursivamente con el HI
+            s += toStringAux(nodo.getIzquierdo());
+        }
+        if (tieneDer) {
+            // Si tiene HD llama recursivamente con el HD
+            s += toStringAux(nodo.getDerecho());
+        }
+
+        return s;
+    }
+}

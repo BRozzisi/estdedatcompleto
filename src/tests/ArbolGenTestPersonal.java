@@ -50,7 +50,8 @@ public class ArbolGenTestPersonal {
         ArbolGen ag = new ArbolGen();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        System.out.println(ts);
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
     }
@@ -63,7 +64,7 @@ public class ArbolGenTestPersonal {
         boolean ex = ag.insertar("a", null);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(ex, true);
@@ -74,8 +75,8 @@ public class ArbolGenTestPersonal {
         boolean ex2 = ag.insertar("b", "a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> b, \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:b\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(ex, true);
@@ -88,9 +89,9 @@ public class ArbolGenTestPersonal {
         boolean ex3 = ag.insertar("c", "a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(ex, true);
@@ -105,9 +106,9 @@ public class ArbolGenTestPersonal {
         boolean ex4 = ag.insertar("y", "z");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(ex, true);
@@ -124,7 +125,7 @@ public class ArbolGenTestPersonal {
         boolean ex = ag.insertarPorPosicion("a", 0);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(ex, true);
@@ -134,7 +135,7 @@ public class ArbolGenTestPersonal {
         boolean ex = ag.insertarPorPosicion("a", -1);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
         assertEquals(ex, false);
@@ -144,7 +145,7 @@ public class ArbolGenTestPersonal {
         boolean ex = ag.insertarPorPosicion("a", 5);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
         assertEquals(ex, false);
@@ -155,8 +156,8 @@ public class ArbolGenTestPersonal {
         boolean ex2 = ag.insertarPorPosicion("b", 1);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> b, \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:b\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(ex, true);
@@ -169,9 +170,9 @@ public class ArbolGenTestPersonal {
         boolean ex3 = ag.insertarPorPosicion("c", 1);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(ex, true);
@@ -186,9 +187,9 @@ public class ArbolGenTestPersonal {
         boolean ex4 = ag.insertarPorPosicion("z", 20);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(ex, true);
@@ -205,7 +206,7 @@ public class ArbolGenTestPersonal {
         boolean p = ag.pertenece("a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
         assertEquals(p, false);
@@ -218,9 +219,9 @@ public class ArbolGenTestPersonal {
         boolean p = ag.pertenece("a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(p, true);
@@ -233,9 +234,9 @@ public class ArbolGenTestPersonal {
         boolean p = ag.pertenece("c");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(p, true);
@@ -248,9 +249,9 @@ public class ArbolGenTestPersonal {
         boolean p = ag.pertenece("z");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(p, false);
@@ -264,7 +265,7 @@ public class ArbolGenTestPersonal {
         Lista la = ag.ancestros("a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         boolean evla = la.esVacia();
         String tsla = la.toString();
         boolean tslae = tsla.equals("[]");
@@ -279,7 +280,7 @@ public class ArbolGenTestPersonal {
         Lista la = ag.ancestros("a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         boolean evla = la.esVacia();
         String tsla = la.toString();
         boolean tslae = tsla.equals("[a]");
@@ -297,10 +298,10 @@ public class ArbolGenTestPersonal {
         Lista la = ag.ancestros("d");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         boolean evla = la.esVacia();
         String tsla = la.toString();
         boolean tslae = tsla.equals("[a,b,d]");
@@ -318,10 +319,10 @@ public class ArbolGenTestPersonal {
         Lista la = ag.ancestros("z");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         boolean evla = la.esVacia();
         String tsla = la.toString();
         boolean tslae = tsla.equals("[]");
@@ -338,7 +339,7 @@ public class ArbolGenTestPersonal {
         ArbolGen ag = new ArbolGen();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
     }
@@ -347,7 +348,7 @@ public class ArbolGenTestPersonal {
         ag.insertar("a", null);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         assertEquals(ev, false);
         assertEquals(tse, true);
     }
@@ -357,7 +358,7 @@ public class ArbolGenTestPersonal {
         ag.insertar("a", null);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         assertEquals(ev, false);
         assertEquals(antes, true);
         assertEquals(tse, true);
@@ -371,7 +372,7 @@ public class ArbolGenTestPersonal {
         int a = ag.altura();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
         assertEquals(a, -1);
@@ -382,7 +383,7 @@ public class ArbolGenTestPersonal {
         int a = ag.altura();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -397,10 +398,10 @@ public class ArbolGenTestPersonal {
         int a = ag.altura();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -418,7 +419,7 @@ public class ArbolGenTestPersonal {
         int n = ag.nivel("a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
         assertEquals(n, -1);
@@ -429,7 +430,7 @@ public class ArbolGenTestPersonal {
         int n = ag.nivel("a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -444,10 +445,10 @@ public class ArbolGenTestPersonal {
         int n = ag.nivel("d");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -465,10 +466,10 @@ public class ArbolGenTestPersonal {
         int n = ag.nivel("z");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -486,7 +487,7 @@ public class ArbolGenTestPersonal {
         Object o = ag.padre("a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
         assertEquals(o, null);
@@ -497,7 +498,7 @@ public class ArbolGenTestPersonal {
         Object o = ag.padre("a");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -512,10 +513,10 @@ public class ArbolGenTestPersonal {
         Object o = ag.padre("d");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -533,10 +534,10 @@ public class ArbolGenTestPersonal {
         Object o = ag.padre("z");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -554,7 +555,7 @@ public class ArbolGenTestPersonal {
         ag.vaciar();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
     }
@@ -567,7 +568,7 @@ public class ArbolGenTestPersonal {
         ag.vaciar();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -577,10 +578,6 @@ public class ArbolGenTestPersonal {
     }
 
     /**************************************************************************************************************** 
-     * TESTS DE clone() PREGUNTAR A LA CATEDRA
-     ****************************************************************************************************************/
-
-    /**************************************************************************************************************** 
      * TESTS DE listarPreorden()
      ****************************************************************************************************************/
     @Test public void listarPreArbolVacio() {
@@ -588,7 +585,7 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPreorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[]");
@@ -603,7 +600,7 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPreorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[a]");
@@ -622,10 +619,10 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPreorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[a,c,b,d]");
@@ -647,7 +644,7 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarInorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[]");
@@ -662,7 +659,7 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarInorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[a]");
@@ -681,10 +678,10 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarInorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[c,a,d,b]");
@@ -706,7 +703,7 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPosorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[]");
@@ -721,7 +718,7 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPosorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[a]");
@@ -740,10 +737,10 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPosorden();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[c,d,b,a]");
@@ -765,7 +762,7 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPorNiveles();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[]");
@@ -780,7 +777,7 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPorNiveles();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[a]");
@@ -799,10 +796,10 @@ public class ArbolGenTestPersonal {
         Lista lis = ag.listarPorNiveles();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         boolean lisev = lis.esVacia();
         String lists = lis.toString();
         boolean listse = lists.equals("[a,c,b,d]");
@@ -823,7 +820,7 @@ public class ArbolGenTestPersonal {
         ArbolGen ag = new ArbolGen();
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("[]");
+        boolean tse = ts.equals("");
         assertEquals(ev, true);
         assertEquals(tse, true);
     }
@@ -832,7 +829,7 @@ public class ArbolGenTestPersonal {
         boolean in = ag.insertar("a", null);
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> ");
+        boolean tse = ts.equals("a:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);
@@ -845,10 +842,10 @@ public class ArbolGenTestPersonal {
         boolean in4 = ag.insertar("d", "b");
         boolean ev = ag.esVacio();
         String ts = ag.toString();
-        boolean tse = ts.equals("a -> c, b, \n"+ //
-                                "c -> \n"+ //
-                                "b -> d, \n"+ //
-                                "d -> ");
+        boolean tse = ts.equals("a:c,b\n"+ //
+                                "c:\n"+ //
+                                "b:d\n"+ //
+                                "d:");
         assertEquals(ev, false);
         assertEquals(tse, true);
         assertEquals(in, true);

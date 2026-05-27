@@ -163,15 +163,15 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        ArbolBB a = new ArbolBB();
-        ArbolBB b;
-
-        cargarArbolBBInts(a);
-
-        a.eliminar(50);
-
+        ArbolAVL a = new ArbolAVL();
+        a.insertar(4);
+        a.insertar(2);
+        a.insertar(8);
+        a.insertar(6);
+        a.insertar(10);
+        a.insertar(5);
+        
         System.out.println(a);
-        System.out.println("-----------------------------------------------");
         
     }
     
