@@ -456,12 +456,12 @@ public class ArbolGen {
 }
 
     private Lista listaQueJustificaLaAlturaAux(NodoGen n) {
-    Lista mayorCaminoHijos = new Lista();
-    int maxAltura = -1;
+        Lista mayorCaminoHijos = new Lista();
+        int maxAltura = -1;
 
-    // 1. Explorar todos los hijos para encontrar el camino más largo entre ellos
-    NodoGen hijo = n.getHijoIzquierdo();
-    while (hijo != null) {
+        // 1. Explorar todos los hijos para encontrar el camino más largo entre ellos
+        NodoGen hijo = n.getHijoIzquierdo();
+        while (hijo != null) {
         Lista caminoHijo = listaQueJustificaLaAlturaAux(hijo);
         int alturaHijo = caminoHijo.longitud();
 
@@ -470,13 +470,39 @@ public class ArbolGen {
             mayorCaminoHijos = caminoHijo; // Nos quedamos con la lista más larga
         }
         hijo = hijo.getHermanoDerecho();
+        }
+
+        // 2. Crear una nueva lista que sea: mi elemento + el mejor camino de mis hijos
+        // Usamos un clon o una lista nueva para no alterar las rutas de otros niveles
+        Lista resultado = mayorCaminoHijos.clone();
+        resultado.insertar(n.getElem(), 1); // Insertamos al padre al principio
+
+        return resultado;
     }
 
-    // 2. Crear una nueva lista que sea: mi elemento + el mejor camino de mis hijos
-    // Usamos un clon o una lista nueva para no alterar las rutas de otros niveles
-    Lista resultado = mayorCaminoHijos.clone();
-    resultado.insertar(n.getElem(), 1); // Insertamos al padre al principio
+    /* METODOS DEL SIMULACRO DEL SEGUNDO PARCIAL */
+    public boolean verificarCamino(Lista lisCamino) {
+        boolean esPatron = false;
+        int longitud = lisCamino.longitud();
+        if ((this.raiz != null) && (!lisCamino.esVacia())) {
+            esPatron = verificarCaminoAux(this.raiz, lisCamino, 1, longitud);
+        }
+        return esPatron;
+    }
 
-    return resultado;
-}
+    private boolean verificarCaminoAux(NodoGen n, Lista lis, int i, int l) {
+        boolean esPatron = false;
+        if ((n != null) && (n.getElem() == lis.recuperar(i))) {
+            if (i >= l) {
+                esPatron = true;
+            } else {
+                NodoGen hijo = n.getHijoIzquierdo();
+                while ((hijo != null) && (!esPatron)) {
+                    esPatron = verificarCaminoAux(hijo, lis, i+1, l);
+                    hijo = hijo.getHermanoDerecho();
+                }
+            }
+        }
+        return esPatron;
+    }
 }

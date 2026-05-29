@@ -31,12 +31,12 @@ public class ArbolAVL {
             this.raiz = new NodoAVL(elemento);
         } else {
             // Si la raiz no es nula retorna el resultado del metodo auxiliar
-            exito = insertarAux(this.raiz, elemento);
+            exito = insertarAux(this.raiz, null, elemento, false);
         }
         return exito;
     }
 
-    private boolean insertarAux(NodoAVL n, Comparable elemento) {
+    private boolean insertarAux(NodoAVL n, NodoAVL padre, Comparable elemento, boolean lugarN) {
         boolean exito = true;
         int balance = 0;
         if ((elemento.compareTo(n.getElem())) == 0) {
@@ -50,54 +50,64 @@ public class ArbolAVL {
                 // Si el nodo actual ya tiene HI entonces llama recursivamente con el para que
                 // lo inserte en su
                 // subarbol izquierdo.
-                exito = insertarAux(n.getIzquierdo(), elemento);
+                exito = insertarAux(n.getIzquierdo(), n, elemento, false);
             } else {
                 // Si el nodo actual no tiene HI entonces ingresa el elemento ahi.
                 n.setIzquierdo(new NodoAVL(elemento));
             }
-            balance = n.calcularBalance();
-            System.out.println(n.getElem().toString() + " " + balance);
         } else {
             // Si el elemento es mas grande que el del nodo actual, pregunta:
             if (n.getDerecho() != null) {
                 // Si el nodo actual tiene HD entonces llama recursivamente con el para que lo
                 // inserte en su subarbol
                 // derecho
-                exito = insertarAux(n.getDerecho(), elemento);
+                exito = insertarAux(n.getDerecho(), n, elemento, true);
             } else {
                 // Si el nodo actual no tiene HD entonces inserta elemento ahi
                 n.setDerecho(new NodoAVL(elemento));
             }
+        }
+        if (exito) {
+            n.recalcularAltura();
             balance = n.calcularBalance();
-            System.out.println(n.getElem().toString() + " " + balance);
         }
         if ((balance <= -2) || (balance >= 2)) {
-            realizarRotacion(n, balance);
+            if (padre == null) {
+                this.raiz = realizarRotacion(n, balance);
+            } else {
+                if (lugarN) {
+                    padre.setDerecho(realizarRotacion(n, balance));
+                } else {
+                    padre.setIzquierdo(realizarRotacion(n, balance));
+                }
+            }
         }
         // Retorna false solo si el elemento ingresado ya estaba en el arbol
         return exito;
     }
 
-    private void realizarRotacion(NodoAVL n, int balance) {
+    private NodoAVL realizarRotacion(NodoAVL n, int balance) {
+        NodoAVL nodoRetorno = null;
         if (balance > 0) {
             int balanceIzquierdo = n.getIzquierdo().calcularBalance();
             if ((balanceIzquierdo == 1) || (balanceIzquierdo == 0)){ 
                 System.out.println("Se realiza una rotacion simple a derecha con pivote " + n.getElem());
-                rotacionSimpleDer(n);
+                nodoRetorno = rotacionSimpleDer(n);
             } else if (balanceIzquierdo < 0) {
                 System.out.println("Se realiza una rotacion doble der-izq con pivote " + n.getElem());
-                rotacionDobleIzqDer(n);
+                nodoRetorno = rotacionDobleIzqDer(n);
             }
         } else if (balance < 0){ 
             int balanceDerecho = n.getDerecho().calcularBalance();
             if ((balanceDerecho == -1) || (balanceDerecho == 0)) {
                 System.out.println("Se realiza una rotacion simple a izquierda con pivote " + n.getElem());
-                rotacionSimpleIzq(n);
+                nodoRetorno = rotacionSimpleIzq(n);
             } else if (balanceDerecho > 0) {
                 System.out.println("Se realiza una rotacion doble izq-der con pivote " + n.getElem());
-                rotacionDobleDerIzq(n);
+                nodoRetorno = rotacionDobleDerIzq(n);
             }
         }
+        return nodoRetorno;
     }
 
     private NodoAVL rotacionSimpleIzq(NodoAVL r) {
@@ -105,6 +115,10 @@ public class ArbolAVL {
         NodoAVL temp = h.getIzquierdo();
         h.setIzquierdo(r);
         r.setDerecho(temp);
+
+        r.recalcularAltura();
+        h.recalcularAltura();
+
         return h;
     }
 
@@ -113,21 +127,23 @@ public class ArbolAVL {
         NodoAVL temp = h.getDerecho();
         h.setDerecho(r);
         r.setIzquierdo(temp);
+
+        r.recalcularAltura();
+        h.recalcularAltura();
+
         return h;
     }
 
-    private void rotacionDobleDerIzq(NodoAVL r) {
+    private NodoAVL rotacionDobleDerIzq(NodoAVL r) {
         r.setDerecho(rotacionSimpleDer(r.getDerecho()));
-        rotacionSimpleIzq(r);
+        NodoAVL h = rotacionSimpleIzq(r);
+        return h;
     }
 
-    private void rotacionDobleIzqDer(NodoAVL r) {
+    private NodoAVL rotacionDobleIzqDer(NodoAVL r) {
         r.setIzquierdo(rotacionSimpleIzq(r.getIzquierdo()));
-        rotacionSimpleDer(r);
-    }
-
-    private void recalcularAlturaDelArbol(NodoAVL n) {
-        
+        NodoAVL h = rotacionSimpleDer(r);
+        return h;
     }
 
     @Override

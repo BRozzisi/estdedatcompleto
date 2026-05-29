@@ -29,10 +29,10 @@ public class NodoAVL {
         int alturaIzquierdo = -1;
         int alturaDerecho = -1;
         if (this.izquierdo != null) {
-            alturaIzquierdo = izquierdo.altura;
+            alturaIzquierdo = this.izquierdo.altura;
         } 
         if (this.derecho != null) {
-            alturaDerecho = derecho.altura;
+            alturaDerecho = this.derecho.altura;
         }
         if (alturaDerecho <= alturaIzquierdo) {
             this.altura = alturaIzquierdo+1;

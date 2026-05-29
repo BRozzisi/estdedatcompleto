@@ -164,12 +164,23 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         ArbolGen a = new ArbolGen();
-        a.insertarPorPosicion(1,1);
-        boolean exito = a.insertarPorPosicion(2,1);
+        a.insertar(20, null);
+        a.insertar(13, 20);
+        a.insertar(54, 20);
+        a.insertar(15, 13);
+        a.insertar(12, 13);
+        a.insertar(11, 54);
+        a.insertar(27,54);
+        a.insertar(4, 54);
+        a.insertar(17, 27);
 
-        System.out.println(a);
-        System.out.println(exito);
-        
+        Lista l = new Lista();
+        l.insertar(20, 1);
+        l.insertar(17, 2);
+
+        boolean esPatron = a.verificarCamino(l);
+
+        System.out.println(esPatron);
     }
     
 }

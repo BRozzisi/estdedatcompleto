@@ -44,7 +44,6 @@ public class SimulacroPrimerParcial {
         int contLlaves = 0;
         int contCorchetes = 0;
         int contParentesis = 0;
-        int i = 1;
         while ((qaux.obtenerFrente() != null) && (contLlaves >= 0) && (contCorchetes >= 0) && (contParentesis >= 0)) {
             Character frente = (Character) qaux.obtenerFrente();
             switch (frente) {
@@ -82,7 +81,6 @@ public class SimulacroPrimerParcial {
         Pila pAux2 = new Pila();
         Character aux;
         boolean indice = true;
-        int i = 1;
         while (!qClon.esVacia()) {
             aux = (Character) qClon.obtenerFrente();
             if (indice) {
