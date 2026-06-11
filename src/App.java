@@ -1,6 +1,7 @@
 import jerarquicas.*;
 import lineales.dinamicas.*;
 import conjuntistas.*;
+import java.util.Arrays;
 public class App {
     public static void cargarArbolCompleto4Niveles(ArbolBin arbol) {
         arbol.insertar("A", null, true);
@@ -163,24 +164,18 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        ArbolGen a = new ArbolGen();
-        a.insertar(20, null);
-        a.insertar(13, 20);
-        a.insertar(54, 20);
-        a.insertar(15, 13);
-        a.insertar(12, 13);
-        a.insertar(11, 54);
-        a.insertar(27,54);
-        a.insertar(4, 54);
-        a.insertar(17, 27);
+        ArbolBB abb = new ArbolBB();
+        abb.insertar(56);
+        abb.insertar(13);
+        abb.insertar(78);
+        abb.insertar(7);
+        abb.insertar(24);
+        abb.insertar(100);
+        abb.insertar(15);
 
-        Lista l = new Lista();
-        l.insertar(20, 1);
-        l.insertar(17, 2);
+        ArbolBB abbinv = abb.clonarParteInvertida(13);
 
-        boolean esPatron = a.verificarCamino(l);
-
-        System.out.println(esPatron);
+        System.out.println(abbinv);
     }
     
 }

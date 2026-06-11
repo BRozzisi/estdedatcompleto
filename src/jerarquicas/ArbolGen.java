@@ -480,7 +480,9 @@ public class ArbolGen {
         return resultado;
     }
 
-    /* METODOS DEL SIMULACRO DEL SEGUNDO PARCIAL */
+    /*************************************************************
+    * METODOS DEL SIMULACRO DEL SEGUNDO PARCIAL
+    *************************************************************/
     public boolean verificarCamino(Lista lisCamino) {
         boolean esPatron = false;
         int longitud = lisCamino.longitud();
@@ -504,5 +506,70 @@ public class ArbolGen {
             }
         }
         return esPatron;
+    }
+
+    public Lista listarEntreNiveles(int niv1, int niv2) {
+        Lista lis = new Lista();
+        if (niv1 <= niv2) {
+            listarEntreNivelesRec(this.raiz, 0, niv1, niv2, lis);
+        } else {
+            listarEntreNivelesRec(this.raiz, 0, niv2, niv1, lis);
+        }
+        return lis;
+    }
+
+    private void listarEntreNivelesRec(NodoGen n, int i, int niv1, int niv2, Lista lis) {
+        if (n != null) {
+            if (i <= niv2) {
+                NodoGen hijo = n.getHijoIzquierdo();
+                if (i >= niv1) {
+                    lis.insertar(n.getElem(), lis.longitud()+1);
+                }
+                while (hijo != null) {
+                    listarEntreNivelesRec(hijo, i+1, niv1, niv2, lis);
+                    hijo = hijo.getHermanoDerecho();
+                }
+            }
+        }
+    }
+
+    public boolean eliminar(Object elemento) {
+        boolean exito = false;
+        if (this.raiz != null) {
+            if (this.raiz.getElem() == elemento) {
+                this.raiz = null;
+                exito = true;
+            } else {
+                NodoGen hermano = buscarPadreDos(this.raiz, elemento);
+                if (hermano != null) {
+                    exito = true;
+                }
+            }
+        }
+        return exito;
+    }
+
+    private NodoGen buscarPadreDos(NodoGen n, Object elemento) {
+        NodoGen hermano = null;
+        boolean encontrado = false;
+        if (n != null) {
+            NodoGen hijo = n.getHijoIzquierdo();
+            NodoGen hijo2;
+            if ((hijo != null) && (hijo.getElem() == elemento)) {
+                n.setHijoIzquierdo(hijo.getHermanoDerecho());
+            } else {
+                while ((!encontrado) && (hijo != null)) {
+                    hijo2 = hijo.getHermanoDerecho();
+                    if ((hijo2 != null) && (hijo2.getElem() == elemento)) {
+                        hermano = hijo;
+                        hermano.setHermanoDerecho(hermano.getHermanoDerecho().getHermanoDerecho());
+                    } else {
+                        hermano = buscarPadreDos(hijo, elemento);
+                        hijo = hijo2;
+                    }
+                }
+            }
+        }
+        return hermano;
     }
 }

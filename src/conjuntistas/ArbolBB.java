@@ -348,4 +348,56 @@ public class ArbolBB {
 
         return s;
     }
+
+    /*************************************************************
+    * MÉTODOS DE SIMULACRO DEL SEGUNDO PARCIAL
+    *************************************************************/
+    public void eliminarMinimo() {
+        NodoABB actual = this.raiz;
+        if (actual != null) {
+            NodoABB menor = actual.getIzquierdo();
+            if (menor == null) { 
+                this.raiz = this.raiz.getDerecho();
+            }
+            while (menor != null) {
+                if (menor.getIzquierdo() == null) {
+                    actual.setIzquierdo(null);
+                }
+                actual = menor;
+                menor = menor.getIzquierdo();
+            }
+        }
+    }
+
+    public ArbolBB clonarParteInvertida(Comparable elem) {
+        ArbolBB clonInvertido = new ArbolBB();
+        if (this.raiz != null) {
+            boolean encontrado = false;
+            NodoABB nodoAux = this.raiz;
+            while ((!encontrado) && (nodoAux != null)) {
+                int comparacion = elem.compareTo(nodoAux.getElem());
+                if (comparacion < 0) {
+                    nodoAux = nodoAux.getIzquierdo();
+                } else if (comparacion > 0) {
+                    nodoAux = nodoAux.getDerecho();
+                } else {
+                    encontrado = true;
+                }
+            }
+            if (encontrado) {
+                clonInvertido.raiz = invertirRamas(nodoAux);
+            }
+        }
+        return clonInvertido;
+    }
+
+    private NodoABB invertirRamas(NodoABB n) {
+        NodoABB ret = null;
+        if (n != null) {
+            ret = new NodoABB(n.getElem());
+            ret.setIzquierdo(invertirRamas(n.getDerecho()));
+            ret.setDerecho(invertirRamas(n.getIzquierdo()));
+        }
+        return ret;
+    }
 }
