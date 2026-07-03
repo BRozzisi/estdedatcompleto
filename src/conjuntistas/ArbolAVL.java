@@ -40,16 +40,19 @@ public class ArbolAVL {
         boolean exito = true;
         int balance = 0;
         if ((elemento.compareTo(n.getElem())) == 0) {
-            // Si el elemento es igual al del nodo actual, entonces retorna false ya que no
-            // puede haber 2 elementos
-            // iguales en esta implementacion del AVL
+            /* 
+            * Si el elemento es igual al del nodo actual, entonces retorna false ya que no
+            * puede haber 2 elementos
+            * iguales en esta implementacion del AVL
+            */
             exito = false;
         } else if (elemento.compareTo(n.getElem()) < 0) {
             // Si el elemento es mas chico que el del nodo actual, pregunta:
             if (n.getIzquierdo() != null) {
-                // Si el nodo actual ya tiene HI entonces llama recursivamente con el para que
-                // lo inserte en su
-                // subarbol izquierdo.
+                /*
+                * Si el nodo actual ya tiene HI entonces llama recursivamente con el para que
+                * lo inserte en su subarbol izquierdo.
+                */
                 exito = insertarAux(n.getIzquierdo(), n, elemento, false);
             } else {
                 // Si el nodo actual no tiene HI entonces ingresa el elemento ahi.
@@ -68,14 +71,19 @@ public class ArbolAVL {
             }
         }
         if (exito) {
+            // Luego de la inserción, se recalcula la altura de los nodos a la vuelta de la recursión.
             n.recalcularAltura();
+            // Tambien se calcula el balance de cada nodo con la nueva altura.
             balance = n.calcularBalance();
         }
         if ((balance <= -2) || (balance >= 2)) {
+            // Si el balance no esta entre -1 y 1 inclusive, realiza las rotaciones correspondientes.
             if (padre == null) {
                 this.raiz = realizarRotacion(n, balance);
             } else {
                 if (lugarN) {
+                    // lugarN es una variable que lleva la informacion de que lado esta como hijo el nodo que debe ser
+                    // rotado
                     padre.setDerecho(realizarRotacion(n, balance));
                 } else {
                     padre.setIzquierdo(realizarRotacion(n, balance));
@@ -87,26 +95,28 @@ public class ArbolAVL {
     }
 
     private NodoAVL realizarRotacion(NodoAVL n, int balance) {
+        // Este metodo decide cual de las 4 rotaciones debe realizarse, segun el balance del nodo y el de su hijo.
         NodoAVL nodoRetorno = null;
         if (balance > 0) {
             int balanceIzquierdo = n.getIzquierdo().calcularBalance();
             if ((balanceIzquierdo == 1) || (balanceIzquierdo == 0)){ 
-                System.out.println("Se realiza una rotacion simple a derecha con pivote " + n.getElem());
+                // System.out.println("Se realiza una rotacion simple a derecha con pivote " + n.getElem());
                 nodoRetorno = rotacionSimpleDer(n);
             } else if (balanceIzquierdo < 0) {
-                System.out.println("Se realiza una rotacion doble der-izq con pivote " + n.getElem());
+                // System.out.println("Se realiza una rotacion doble der-izq con pivote " + n.getElem());
                 nodoRetorno = rotacionDobleIzqDer(n);
             }
         } else if (balance < 0){ 
             int balanceDerecho = n.getDerecho().calcularBalance();
             if ((balanceDerecho == -1) || (balanceDerecho == 0)) {
-                System.out.println("Se realiza una rotacion simple a izquierda con pivote " + n.getElem());
+                // System.out.println("Se realiza una rotacion simple a izquierda con pivote " + n.getElem());
                 nodoRetorno = rotacionSimpleIzq(n);
             } else if (balanceDerecho > 0) {
-                System.out.println("Se realiza una rotacion doble izq-der con pivote " + n.getElem());
+                // System.out.println("Se realiza una rotacion doble izq-der con pivote " + n.getElem());
                 nodoRetorno = rotacionDobleDerIzq(n);
             }
         }
+        // Retorna la nueva raiz del subarbol que debe ser ubicada como hijo del padre de n en la recursion de insertarAux(...)
         return nodoRetorno;
     }
 

@@ -572,4 +572,64 @@ public class ArbolGen {
         }
         return hermano;
     }
+
+    /*************************************************************
+    * SEGUNDO PARCIAL
+    *************************************************************/
+    public boolean eliminarHijoEnPosicion(int posPadre, int posHijo) {
+        boolean exito = false;
+        if ((posPadre >= 1) && (posHijo >= 1)) {
+            int[] i = {0};
+            NodoGen padre = buscarNodo(this.raiz, posPadre, i);
+            System.out.println("PADRE.GETELEM() " + padre.getElem());
+            if (padre != null) {
+                exito = eliminarHijo(posHijo, padre);
+            }
+        }
+        return exito;
+    }
+
+    private NodoGen buscarNodo(NodoGen n, int pos, int[] i) {
+        NodoGen nRet = null;
+        if (n != null) {
+            i[0] = i[0] + 1;
+            System.out.println(i[0]);
+            if (i[0] >= pos) {
+                nRet = n;
+                System.out.println("PADRE ENCONTRADO");
+            } else {
+                NodoGen hijo = n.getHijoIzquierdo();
+                while ((hijo != null) && (nRet == null)) {
+                    nRet = buscarNodo(hijo, pos, i);
+                    hijo = hijo.getHermanoDerecho();
+                }
+            }
+        }
+        return nRet;
+    }
+
+    private boolean eliminarHijo(int posHijo, NodoGen padre) {
+        boolean eliminado = false;
+        NodoGen hijo = padre.getHijoIzquierdo();
+        if (hijo != null) {
+            if (posHijo == 1) {
+                padre.setHijoIzquierdo(hijo.getHermanoDerecho());
+                eliminado = true;
+            } else {
+                int cont = 1;
+                while ((hijo != null) && ((cont + 1) <= posHijo)) {
+                    if ((cont + 1) == posHijo) {
+                        NodoGen hijoElim = hijo.getHermanoDerecho();
+                        if (hijoElim != null) {
+                            hijo.setHermanoDerecho(hijoElim.getHermanoDerecho());
+                            eliminado = true;
+                        }
+                    }
+                    hijo = hijo.getHermanoDerecho();
+                    cont++;
+                }
+            }
+        }
+        return eliminado;
+    }
 }

@@ -400,4 +400,35 @@ public class ArbolBB {
         }
         return ret;
     }
+
+    /*************************************************************
+    * SEGUNDO PARCIAL
+    *************************************************************/
+    public Lista listarMenoresQue(Comparable valor, Comparable elem) {
+        Lista lisMenores = new Lista();
+        if (this.raiz != null) {
+            NodoABB raizSubarbol = this.raiz;
+            int comparacion = -1;
+            while ((raizSubarbol != null) && (comparacion != 0)) {
+                comparacion = elem.compareTo(raizSubarbol.getElem());
+                if (comparacion > 0) {
+                    raizSubarbol = raizSubarbol.getDerecho();
+                } else if (comparacion < 0) {
+                    raizSubarbol = raizSubarbol.getIzquierdo();
+                }
+            }
+            listadoMenores(raizSubarbol, valor, lisMenores);
+        }
+        return lisMenores;
+    }
+
+    private void listadoMenores(NodoABB n, Comparable valor, Lista lis) {
+        if (n != null) {
+            listadoMenores(n.getIzquierdo(), valor, lis);
+            if (valor.compareTo(n.getElem()) > 0) {
+                lis.insertar(n.getElem(), lis.longitud()+1);
+                listadoMenores(n.getDerecho(), valor, lis);
+            }
+        }
+    }
 }

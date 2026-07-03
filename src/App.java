@@ -164,18 +164,13 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        ArbolBB abb = new ArbolBB();
-        abb.insertar(56);
-        abb.insertar(13);
-        abb.insertar(78);
-        abb.insertar(7);
-        abb.insertar(24);
-        abb.insertar(100);
-        abb.insertar(15);
+        ArbolBB a = new ArbolBB();
 
-        ArbolBB abbinv = abb.clonarParteInvertida(13);
+        cargarArbolBBInts(a);
 
-        System.out.println(abbinv);
+        a.insertar(70);
+
+        System.out.println(a.listarMenoresQue(76, 45345));
     }
     
 }
