@@ -1,6 +1,9 @@
 import jerarquicas.*;
 import lineales.dinamicas.*;
 import conjuntistas.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Arrays;
 public class App {
     public static void cargarArbolCompleto4Niveles(ArbolBin arbol) {
@@ -164,13 +167,14 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        ArbolBB a = new ArbolBB();
+        ArbolAVL a = new ArbolAVL();
+        boolean in = a.insertar(10);
+        boolean in2 = a.insertar(5);
+        boolean in3 = a.insertar(20);
+        boolean el = a.eliminar(10);
+        String ts = a.toString();
 
-        cargarArbolBBInts(a);
-
-        a.insertar(70);
-
-        System.out.println(a.listarMenoresQue(76, 45345));
+        System.out.println(ts);
     }
     
 }
